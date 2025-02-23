@@ -1,0 +1,47 @@
+---
+const experiences = [
+  {
+    role: 'Full Stack Developer',
+    company: 'Tech Ventures Group',
+    duration: 'Jun 2024 - Present (9 months)',
+    location: 'California, United States (Remote)',
+    responsibilities: 'Software Infrastructure, Large Language Models (LLM), and relevant tech stacks'
+  },
+  {
+    role: 'Lead Software Engineer',
+    company: 'CribStore Innovations Pvt Ltd',
+    duration: 'Nov 2023 - Aug 2024 (10 months)',
+    location: 'Hyderabad, Telangana, India (Hybrid)',
+    responsibilities: 'API Development, Amazon EC2, and other cloud-based skills'
+  },
+  {
+    role: 'Software Engineer (Full-time)',
+    company: 'Blackcoffer',
+    duration: 'Jan 2023 - Nov 2023 (11 months)',
+    location: 'New Delhi, Delhi, India (Remote)',
+    responsibilities: 'Docker, Node.js, plus other relevant skills'
+  },
+  {
+    role: 'Associate Software Engineer (Internship)',
+    company: 'Blackcoffer',
+    duration: 'Jul 2022 - Jan 2023 (7 months)',
+    location: 'New Delhi, Delhi, India (Remote)',
+    responsibilities: 'Docker, Node.js, plus other relevant skills'
+  }
+];
+---
+<section id="experience" class="py-12 border-t border-[#ffffff10] text-[var(--white)]">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="text-lg text-[var(--sec)] mb-2 shiny-sec">Experience</h2>
+    <h3 class="text-4xl md:text-5xl font-medium mb-8">Work Experience</h3>
+    <div class="space-y-8">
+      {experiences.map(exp => (
+        <div class="p-6 bg-[#1414149c] rounded-xl shadow-lg" data-key={exp.company + exp.role}>
+          <h4 class="text-2xl font-semibold">{exp.company} - {exp.role}</h4>
+          <p class="text-sm text-[var(--white-icon)]">{exp.duration}{exp.location && ` | ${exp.location}`}</p>
+          {exp.responsibilities && <p class="mt-2">Responsibilities: {exp.responsibilities}</p>}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
