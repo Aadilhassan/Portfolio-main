@@ -91,4 +91,14 @@ const { title } = Astro.props;
     scrollbar-width: thin;
     scrollbar-color: var(--line) var(--container);
   }
+
+  /* Link hover effect */
+  a {
+    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  }
+
+  a:hover {
+    color: var(--sec);
+    transform: scale(1.05);
+  }
 </style>
