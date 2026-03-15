@@ -1,43 +1,55 @@
 import React from 'react';
 
-// Consolidated and categorized skills
 const skills = {
-  'Core Expertise': [
+  'Languages': [
     'JavaScript',
     'TypeScript',
-    'React',
-    'Node.js',
+    'Python',
+    'SQL',
+    'Go'
+  ],
+  'Frontend': [
+    'React.js',
+    'Next.js',
+    'Remix.js',
+    'Tailwind CSS',
     'Astro'
   ],
-  'Cloud & DevOps': [
-    'Amazon EC2',
-    'Docker',
-    'Vercel',
-    'AWS'
-  ],
-  'Frameworks & Tools': [
-    'TailwindCSS',
-    'pnpm',
-    'Git'
-  ],
-  'APIs & Integrations': [
-    'RESTful APIs',
+  'Backend & Infra': [
+    'Node.js',
+    'Express.js',
+    'Django',
     'GraphQL',
-    'API Development'
+    'Docker',
+    'AWS',
+    'Nginx'
+  ],
+  'Data & AI': [
+    'PostgreSQL',
+    'MongoDB',
+    'Redis',
+    'LLMOps',
+    'VectorDB',
+    'LiteLLM'
   ]
 };
 
 export default function SkillsList() {
   return (
-    <div className="space-y-6">
+    <div className="grid grid-cols-2 gap-6">
       {Object.entries(skills).map(([category, items]) => (
         <div key={category}>
-          <h4 className="text-xl font-semibold text-[var(--white)]">{category}</h4>
-          <ul className="list-disc pl-5 mt-2">
+          <h4 className="text-lg font-semibold text-[var(--sec)] mb-2">{category}</h4>
+          <div className="flex flex-wrap gap-2">
             {items.map(skill => (
-              <li key={skill} className="text-[var(--white-icon)]">{skill}</li>
+              <span
+                key={skill}
+                className="text-sm px-3 py-1 rounded-lg bg-[var(--white-icon-tr)] text-[var(--white-icon)] border border-[var(--white-icon-tr)]"
+              >
+                {skill}
+              </span>
             ))}
-          </ul>
+          </div>
         </div>
       ))}
     </div>

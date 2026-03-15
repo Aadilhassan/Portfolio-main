@@ -1,9 +1,9 @@
 <section id="contact" class="w-full py-12 border-t border-[#ffffff10]">
   <div class="max-w-5xl mx-auto">
-    <h2 class="text-lg text-[var(--sec)] mb-2 shiny-sec">Let's talk</h2>
-    <h3 class="text-4xl md:text-5xl font-medium text-[var(--white)] mb-6">
-      Contact
-    </h3>
+    <p class="text-lg text-[var(--sec)] mb-2 shiny-sec">Let's talk</p>
+    <h2 class="text-4xl md:text-5xl font-medium text-[var(--white)] mb-6">
+      Contact Aadil Hassan
+    </h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <div class="text-[var(--white-icon)]">
         <p class="mb-4">
@@ -11,7 +11,7 @@
         </p>
         <div class="flex items-center gap-2">
           <span>Location:</span>
-          <span class="text-[var(--white)]">Colombia, Valle del cauca</span>
+          <span class="text-[var(--white)]">Ranchi, Jharkhand, India</span>
         </div>
       </div>
 
@@ -22,21 +22,27 @@
           method="POST"
           class="flex flex-col gap-4"
         >
+          <label for="contact-name" class="sr-only">Name</label>
           <input
+            id="contact-name"
             type="text"
             name="from_name"
             placeholder="Name"
             required
             class="px-4 py-2 bg-[#1414149c] text-[var(--white)] border border-[var(--white-icon-tr)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--sec)] transition duration-300 ease-in-out transform hover:scale-105"
           />
+          <label for="contact-email" class="sr-only">Email</label>
           <input
+            id="contact-email"
             type="email"
             name="reply_to"
             placeholder="Email"
             required
             class="px-4 py-2 bg-[#1414149c] text-[var(--white)] border border-[var(--white-icon-tr)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--sec)] transition duration-300 ease-in-out transform hover:scale-105"
           />
+          <label for="contact-message" class="sr-only">Message</label>
           <textarea
+            id="contact-message"
             name="message"
             placeholder="Message"
             rows="6"
@@ -54,7 +60,7 @@
           id="form-message"
           class="hidden justify-center items-center mt-4 text-[var(--white)] text-lg"
         >
-          ✅ Thank you for your message!
+          Thank you for your message!
         </div>
       </div>
     </div>
