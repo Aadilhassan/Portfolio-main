@@ -1,98 +1,47 @@
-<section id="contact" class="w-full py-12 border-t border-[#ffffff10]">
-  <div class="max-w-5xl mx-auto">
-    <p class="text-lg text-[var(--sec)] mb-2 shiny-sec">Let's talk</p>
-    <h2 class="text-4xl md:text-5xl font-medium text-[var(--white)] mb-6">
-      Contact Aadil Hassan
-    </h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div class="text-[var(--white-icon)]">
-        <p class="mb-4">
-          Have a question or a project in mind? Feel free to reach out.
-        </p>
-        <div class="flex items-center gap-2">
-          <span>Location:</span>
-          <span class="text-[var(--white)]">Ranchi, Jharkhand, India</span>
-        </div>
-      </div>
+---
+import { profile } from "@/data/site";
+---
 
-      <div>
-        <form
-          id="contact-form"
-          action="https://formspree.io/f/mnnjznkj"
-          method="POST"
-          class="flex flex-col gap-4"
-        >
-          <label for="contact-name" class="sr-only">Name</label>
-          <input
-            id="contact-name"
-            type="text"
-            name="from_name"
-            placeholder="Name"
-            required
-            class="px-4 py-2 bg-[#1414149c] text-[var(--white)] border border-[var(--white-icon-tr)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--sec)] transition duration-300 ease-in-out transform hover:scale-105"
-          />
-          <label for="contact-email" class="sr-only">Email</label>
-          <input
-            id="contact-email"
-            type="email"
-            name="reply_to"
-            placeholder="Email"
-            required
-            class="px-4 py-2 bg-[#1414149c] text-[var(--white)] border border-[var(--white-icon-tr)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--sec)] transition duration-300 ease-in-out transform hover:scale-105"
-          />
-          <label for="contact-message" class="sr-only">Message</label>
-          <textarea
-            id="contact-message"
-            name="message"
-            placeholder="Message"
-            rows="6"
-            required
-            class="px-4 py-2 bg-[#1414149c] text-[var(--white)] border border-[var(--white-icon-tr)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--sec)] resize-none transition duration-300 ease-in-out transform hover:scale-105"
-          ></textarea>
-          <button
-            type="submit"
-            class="px-4 py-2 bg-[var(--white-icon-tr)] text-[var(--white)] rounded-lg opacity-60 transition-opacity border border-[var(--white-icon-tr)] hover:opacity-100 hover:bg-[var(--white-icon-tr)] transition duration-300 ease-in-out transform hover:scale-105"
-          >
-            Submit
-          </button>
-        </form>
-        <div
-          id="form-message"
-          class="hidden justify-center items-center mt-4 text-[var(--white)] text-lg"
-        >
-          Thank you for your message!
-        </div>
-      </div>
+<section
+  id="contact"
+  class="max-w-content mx-auto px-6 md:px-10 py-24 md:py-36"
+>
+  <div class="max-w-3xl">
+    <p data-reveal class="font-mono text-[13px] text-accent">04 / Contact</p>
+    <h2
+      data-reveal
+      style="transition-delay:60ms"
+      class="mt-5 text-4xl md:text-6xl font-semibold tracking-tight leading-[1.02] text-balance"
+    >
+      Let's build something that ships.
+    </h2>
+    <p
+      data-reveal
+      style="transition-delay:120ms"
+      class="mt-6 text-lg text-muted leading-relaxed max-w-xl"
+    >
+      Open to senior full-stack and AI engineering roles, and to interesting
+      contract work. The fastest way to reach me is email.
+    </p>
+
+    <div data-reveal style="transition-delay:180ms" class="mt-8">
+      <a
+        href={`mailto:${profile.email}`}
+        class="link-underline inline-block text-2xl md:text-4xl font-semibold tracking-tight text-txt hover:text-accent transition-colors break-all"
+      >
+        {profile.email}
+      </a>
+    </div>
+
+    <div
+      data-reveal
+      style="transition-delay:240ms"
+      class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 font-mono text-[13px]"
+    >
+      <a href={profile.github} target="_blank" rel="noopener me" class="text-muted hover:text-accent transition-colors">GitHub ↗</a>
+      <a href={profile.linkedin} target="_blank" rel="noopener me" class="text-muted hover:text-accent transition-colors">LinkedIn ↗</a>
+      <a href={profile.resume} target="_blank" rel="noopener" class="text-muted hover:text-accent transition-colors">Résumé (PDF) ↓</a>
+      <span class="text-faint">{profile.location}</span>
     </div>
   </div>
 </section>
-
-<script type="module" is:inline>
-  const form = document.getElementById("contact-form");
-  const formMessage = document.getElementById("form-message");
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const formData = new FormData(form);
-
-    try {
-      const response = await fetch(form.action, {
-        method: "POST",
-        body: formData,
-        headers: { Accept: "application/json" },
-      });
-      if (response.ok) {
-        form.reset();
-        form.style.display = "none";
-        formMessage.classList.remove("hidden");
-      } else {
-        const data = await response.json();
-        console.error("Error response:", data);
-        alert("There was a problem sending your message.");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("There was a problem sending your message.");
-    }
-  });
-</script>

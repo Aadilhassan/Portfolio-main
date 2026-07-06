@@ -1,0 +1,23 @@
+---
+import SectionHeading from "@/components/sectionHeading.astro";
+import { about } from "@/data/site";
+---
+
+<section id="about" class="max-w-content mx-auto px-6 md:px-10 py-20 md:py-28">
+  <SectionHeading index="00" title="About" />
+  <div class="grid md:grid-cols-[1fr_1.4fr] gap-8 md:gap-16">
+    <p data-reveal class="font-mono text-[13px] text-muted leading-relaxed">
+      Full-stack engineer · AI-native products · owns the full lifecycle from
+      architecture to production.
+    </p>
+    <div data-reveal style="transition-delay:80ms" class="space-y-5">
+      {
+        about.map((para) => (
+          <p class="text-lg md:text-xl text-txt/90 leading-relaxed text-pretty">
+            {para}
+          </p>
+        ))
+      }
+    </div>
+  </div>
+</section>

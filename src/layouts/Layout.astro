@@ -1,4 +1,9 @@
 ---
+import "@fontsource-variable/hanken-grotesk";
+import "@fontsource/ibm-plex-mono/400.css";
+import "@fontsource/ibm-plex-mono/500.css";
+import { profile } from "@/data/site";
+
 interface Props {
   title: string;
   description?: string;
@@ -7,7 +12,7 @@ interface Props {
 
 const {
   title,
-  description = "Aadil Hassan - Senior Software Engineer building AI infrastructure, full-stack SaaS products, and scalable web applications. Based in India.",
+  description = "Aadil Hassan — Senior Software Engineer. I build AI-native products end to end: LLM pipelines, real-time voice agents, and full-stack SaaS. Based in Ranchi, India.",
   canonicalURL = Astro.url.href,
 } = Astro.props;
 
@@ -20,15 +25,14 @@ const siteURL = "https://aadilhassan.in";
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Primary SEO -->
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content="Aadil Hassan" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalURL} />
-    <meta name="theme-color" content="#a476ff" />
+    <meta name="theme-color" content="#0F0F0E" />
 
-    <!-- Open Graph / Facebook / LinkedIn -->
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
@@ -36,149 +40,143 @@ const siteURL = "https://aadilhassan.in";
     <meta property="og:site_name" content="Aadil Hassan" />
     <meta property="og:locale" content="en_US" />
 
-    <!-- Twitter Card -->
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
 
-    <!-- Google Analytics -->
-    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-42V6N5B3X5"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-42V6N5B3X5');
-    </script>
-
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="/favicon.png" />
 
-    <!-- JSON-LD Person Schema -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Aadil Hassan",
-      "url": siteURL,
-      "jobTitle": "Senior Software Engineer",
-      "worksFor": {
-        "@type": "Organization",
-        "name": "Tech Ventures Group"
-      },
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Ranchi",
-        "addressRegion": "Jharkhand",
-        "addressCountry": "IN"
-      },
-      "email": "aahanalhassan@gmail.com",
-      "sameAs": [
-        "https://github.com/aadilhassan",
-        "https://www.linkedin.com/in/aadil--hassan"
-      ],
-      "knowsAbout": [
-        "JavaScript", "TypeScript", "Python", "React.js", "Next.js",
-        "Node.js", "AWS", "Docker", "PostgreSQL", "MongoDB",
-        "LLMOps", "AI Infrastructure", "Full-Stack Development"
-      ],
-      "alumniOf": {
-        "@type": "EducationalOrganization",
-        "name": "IIT Ropar"
-      }
-    })} />
-
-    <!-- JSON-LD Website Schema -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Aadil Hassan - Portfolio",
-      "url": siteURL,
-      "description": description
-    })} />
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    <!-- Person schema -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Person",
+        name: "Aadil Hassan",
+        url: siteURL,
+        jobTitle: "Senior Software Engineer",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Ranchi",
+          addressRegion: "Jharkhand",
+          addressCountry: "IN",
+        },
+        email: profile.email,
+        sameAs: [profile.github, profile.linkedin],
+        knowsAbout: [
+          "TypeScript",
+          "Python",
+          "React",
+          "Next.js",
+          "FastAPI",
+          "AWS",
+          "Supabase",
+          "PostgreSQL",
+          "LLM Engineering",
+          "QA & Test Automation",
+          "Full-Stack Development",
+        ],
+        alumniOf: {
+          "@type": "EducationalOrganization",
+          name: "BITS Pilani",
+        },
+      })}
     />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-      media="print"
-      onload="this.media='all'"
-    />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-      />
-    </noscript>
   </head>
-  <body class="bg-[--background] md:px-48 lg:px-20 px-9">
+  <body class="bg-ink text-txt antialiased">
     <slot />
+    <script is:inline>
+      // Scroll reveal — respects reduced-motion.
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const els = document.querySelectorAll("[data-reveal]");
+      if (reduce || !("IntersectionObserver" in window)) {
+        els.forEach((el) => el.classList.add("is-visible"));
+      } else {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+        );
+        els.forEach((el) => io.observe(el));
+      }
+    </script>
   </body>
 </html>
 
 <style is:global>
-  :root {
-    --background: #101010;
-    --sec: #a476ff;
-    --white: #dfdfdf;
-    --white-icon: #f3f3f398;
-    --white-icon-tr: #f3f3f310;
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 84px;
+    -webkit-text-size-adjust: 100%;
   }
 
-  * {
-    font-family:
-      "montserrat",
-      -apple-system,
-      system-ui,
-      sans-serif;
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+  body {
+    font-family: "Hanken Grotesk Variable", system-ui, sans-serif;
+    line-height: 1.6;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
   }
 
-  *::selection {
-    background-color: var(--sec);
-    color: var(--background);
+  ::selection {
+    background-color: #d8a657;
+    color: #0f0f0e;
   }
-
-  /* Scrollbar styles */
 
   ::-webkit-scrollbar {
-    width: 15px;
+    width: 10px;
   }
-
   ::-webkit-scrollbar-track {
-    background: var(--container);
-    border-radius: 30px;
+    background: #0f0f0e;
   }
-
   ::-webkit-scrollbar-thumb {
-    background: var(--background);
+    background: #2a2a25;
     border-radius: 10px;
   }
-
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--pink);
+    background: #3a3a33;
   }
-
-  /* Scrollbar styles for Firefox */
   * {
     scrollbar-width: thin;
-    scrollbar-color: var(--line) var(--container);
+    scrollbar-color: #2a2a25 #0f0f0e;
   }
 
-  /* Link hover effect */
-  a {
-    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  /* Scroll reveal */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  [data-reveal].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    [data-reveal] {
+      transition: none;
+    }
   }
 
-  a:hover {
-    color: var(--sec);
-    transform: scale(1.05);
+  /* Animated link underline for inline text links */
+  .link-underline {
+    background-image: linear-gradient(#d8a657, #d8a657);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .link-underline:hover {
+    background-size: 100% 1px;
   }
 </style>
