@@ -33,6 +33,8 @@ const siteURL = "https://aadilhassan.in";
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalURL} />
     <meta name="theme-color" content="#FAF6EE" />
+    <meta name="color-scheme" content="light" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -41,13 +43,26 @@ const siteURL = "https://aadilhassan.in";
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content="Aadil Hassan" />
     <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content={`${siteURL}/og.png`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Aadil Hassan — Senior Software Engineer. Full-stack + AI, 10+ products shipped end to end."
+    />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${siteURL}/og.png`} />
 
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    <!-- Icons -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <!-- Person schema -->
     <script
@@ -57,6 +72,9 @@ const siteURL = "https://aadilhassan.in";
         "@type": "Person",
         name: "Aadil Hassan",
         url: siteURL,
+        image: `${siteURL}/og.png`,
+        description:
+          "Senior Software Engineer building AI-native products end to end: LLM pipelines, real-time voice agents, and full-stack SaaS.",
         jobTitle: "Senior Software Engineer",
         address: {
           "@type": "PostalAddress",
@@ -83,6 +101,20 @@ const siteURL = "https://aadilhassan.in";
           "@type": "EducationalOrganization",
           name: "BITS Pilani",
         },
+      })}
+    />
+
+    <!-- WebSite schema -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: "Aadil Hassan — Portfolio",
+        url: siteURL,
+        description,
+        author: { "@type": "Person", name: "Aadil Hassan" },
+        inLanguage: "en",
       })}
     />
   </head>
