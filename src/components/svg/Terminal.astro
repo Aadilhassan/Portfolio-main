@@ -1,0 +1,39 @@
+---
+// Chunky terminal-window illustration with hard shadow, code lines and cursor.
+interface Props {
+  class?: string;
+}
+const { class: className = "w-full h-auto" } = Astro.props;
+---
+
+<svg
+  class={className}
+  viewBox="0 0 420 320"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-hidden="true"
+>
+  <!-- hard shadow -->
+  <rect x="26" y="26" width="380" height="280" fill="#141414"></rect>
+  <!-- window -->
+  <rect x="10" y="10" width="380" height="280" fill="#FAF6EE" stroke="#141414" stroke-width="6"></rect>
+  <!-- title bar -->
+  <rect x="10" y="10" width="380" height="48" fill="#FFD02F" stroke="#141414" stroke-width="6"></rect>
+  <circle cx="42" cy="34" r="9" fill="#FF4D00" stroke="#141414" stroke-width="4"></circle>
+  <circle cx="74" cy="34" r="9" fill="#FAF6EE" stroke="#141414" stroke-width="4"></circle>
+  <circle cx="106" cy="34" r="9" fill="#141414"></circle>
+  <!-- prompt line 1 -->
+  <text x="36" y="98" font-family="monospace" font-size="22" font-weight="bold" fill="#141414">$ ship --prod</text>
+  <!-- code bars -->
+  <rect x="36" y="118" width="180" height="16" fill="#141414"></rect>
+  <rect x="228" y="118" width="90" height="16" fill="#FF4D00" stroke="#141414" stroke-width="3"></rect>
+  <rect x="36" y="148" width="120" height="16" fill="#141414"></rect>
+  <rect x="168" y="148" width="150" height="16" fill="#FAF6EE" stroke="#141414" stroke-width="3"></rect>
+  <rect x="36" y="178" width="220" height="16" fill="#141414"></rect>
+  <rect x="36" y="208" width="80" height="16" fill="#FFD02F" stroke="#141414" stroke-width="3"></rect>
+  <rect x="128" y="208" width="140" height="16" fill="#141414"></rect>
+  <!-- ok line -->
+  <text x="36" y="262" font-family="monospace" font-size="22" font-weight="bold" fill="#FF4D00">✓ deployed. 0 errors.</text>
+  <!-- cursor -->
+  <rect x="320" y="244" width="22" height="24" fill="#141414"></rect>
+</svg>

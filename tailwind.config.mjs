@@ -4,31 +4,29 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: "#0F0F0E", // warm near-black background
-        surface: "#161613", // raised panels / cards
-        surface2: "#1E1E1A", // hover / nested
-        line: "rgba(234,231,224,0.10)", // hairline borders
-        txt: "#EAE7E0", // warm off-white
-        muted: "#8B887F", // secondary text
-        faint: "#5E5C55", // tertiary / captions
-        accent: "#D8A657", // muted amber
-        "accent-soft": "rgba(216,166,87,0.14)",
+        paper: "#FAF6EE", // cream background
+        ink: "#141414", // near-black ink
+        accent: "#FF4D00", // loud orange
+        sun: "#FFD02F", // highlighter yellow
+        muted: "#6B675E", // secondary text
       },
       fontFamily: {
-        sans: ['"Hanken Grotesk Variable"', "system-ui", "sans-serif"],
+        display: ['"Archivo Black"', "system-ui", "sans-serif"],
+        sans: ['"Archivo Variable"', "system-ui", "sans-serif"],
         mono: ['"IBM Plex Mono"', "ui-monospace", "SFMono-Regular", "monospace"],
       },
+      boxShadow: {
+        brutal: "5px 5px 0 0 #141414",
+        "brutal-sm": "3px 3px 0 0 #141414",
+        "brutal-lg": "8px 8px 0 0 #141414",
+        "brutal-accent": "5px 5px 0 0 #FF4D00",
+        "brutal-sun": "5px 5px 0 0 #FFD02F",
+      },
+      borderWidth: {
+        3: "3px",
+      },
       maxWidth: {
-        content: "1080px",
-      },
-      keyframes: {
-        fadeUp: {
-          "0%": { opacity: "0", transform: "translateY(14px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-      },
-      animation: {
-        fadeUp: "fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) forwards",
+        content: "1120px",
       },
     },
   },

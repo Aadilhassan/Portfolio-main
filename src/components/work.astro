@@ -1,68 +1,70 @@
 ---
 import SectionHeading from "@/components/sectionHeading.astro";
+import Burst from "@/components/svg/Burst.astro";
 import { projects, alsoBuilt } from "@/data/site";
 ---
 
-<section id="work" class="max-w-content mx-auto px-6 md:px-10 py-20 md:py-28">
-  <SectionHeading index="01" title="Selected Work" />
+<section id="work" class="border-b-3 border-ink">
+  <div class="max-w-content mx-auto px-5 md:px-8 py-16 md:py-24">
+    <SectionHeading index="01" title="Selected Work" />
 
-  <div class="flex flex-col">
-    {
-      projects.map((p, i) => (
-        <article
-          data-reveal
-          class="group grid md:grid-cols-[3.5rem_1fr] gap-x-6 gap-y-4 border-t border-line py-8 md:py-10 transition-colors hover:bg-surface/40 -mx-4 px-4 rounded-lg"
-        >
-          <div class="font-mono text-[13px] text-faint pt-1.5">
-            {String(i + 1).padStart(2, "0")}
-          </div>
-
-          <div>
-            <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-              <h3 class="text-2xl md:text-3xl font-semibold tracking-tight text-txt group-hover:text-accent transition-colors">
-                {p.name}
-              </h3>
-              <span class="font-mono text-[13px] text-muted">{p.kind}</span>
-            </div>
-
-            <p class="mt-4 max-w-3xl text-[15px] md:text-base text-muted leading-relaxed text-pretty">
-              {p.description}
-            </p>
-
-            <div class="mt-5 flex flex-wrap items-center gap-2">
-              {p.stack.map((s) => (
-                <span class="font-mono text-[11px] text-faint border border-line rounded-md px-2 py-1">
-                  {s}
+    <div class="grid gap-8">
+      {
+        projects.map((p, i) => (
+          <article class="border-3 border-ink bg-paper shadow-brutal">
+            <div class="flex items-stretch border-b-3 border-ink">
+              <span class="font-mono font-bold text-lg bg-ink text-paper px-4 py-3 flex items-center">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <div class="flex-1 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-4 py-3">
+                <h3 class="font-display text-xl md:text-2xl uppercase flex items-center gap-3">
+                  {p.name}
+                  {p.featured && <Burst class="w-5 h-5" fill="#FF4D00" />}
+                </h3>
+                <span class="font-mono text-[12px] font-bold uppercase bg-sun border-3 border-ink px-2 py-0.5">
+                  {p.kind}
                 </span>
-              ))}
+              </div>
             </div>
 
-            {p.links && (
-              <div class="mt-5 flex flex-wrap gap-5">
-                {p.links.map((l) => (
-                  <a
-                    href={l.href}
-                    target="_blank"
-                    rel="noopener"
-                    class="link-underline inline-flex items-center gap-1.5 font-mono text-[13px] text-txt hover:text-accent transition-colors"
-                  >
-                    {l.label}
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17 17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  </a>
+            <div class="p-5 md:p-6">
+              <p class="max-w-3xl text-base md:text-lg leading-relaxed">
+                {p.description}
+              </p>
+
+              <div class="mt-5 flex flex-wrap gap-2">
+                {p.stack.map((s) => (
+                  <span class="font-mono text-[12px] font-medium border-3 border-ink px-2.5 py-1">
+                    {s}
+                  </span>
                 ))}
               </div>
-            )}
-          </div>
-        </article>
-      ))
-    }
-  </div>
 
-  <p
-    data-reveal
-    class="border-t border-line pt-8 mt-2 text-[15px] text-muted leading-relaxed"
-  >
-    <span class="font-mono text-[13px] text-faint">Also built &nbsp;/&nbsp;</span>
-    {alsoBuilt}
-  </p>
+              {p.links && (
+                <div class="mt-5 flex flex-wrap gap-4">
+                  {p.links.map((l) => (
+                    <a
+                      href={l.href}
+                      target="_blank"
+                      rel="noopener"
+                      class="font-mono text-sm font-bold underline decoration-accent decoration-4 underline-offset-4 hover:bg-sun"
+                    >
+                      {l.label} ↗
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="mt-10 border-3 border-ink bg-sun p-5 shadow-brutal">
+      <p class="text-base leading-relaxed">
+        <span class="font-mono font-bold uppercase">Also built /</span>
+        {alsoBuilt}
+      </p>
+    </div>
+  </div>
 </section>

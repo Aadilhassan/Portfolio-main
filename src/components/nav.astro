@@ -2,35 +2,33 @@
 import { profile } from "@/data/site";
 
 const links = [
-  { label: "Work", href: "#work" },
-  { label: "Experience", href: "#experience" },
-  { label: "Skills", href: "#skills" },
-  { label: "Contact", href: "#contact" },
+  { label: "WORK", href: "#work" },
+  { label: "EXPERIENCE", href: "#experience" },
+  { label: "SKILLS", href: "#skills" },
+  { label: "CONTACT", href: "#contact" },
 ];
 ---
 
-<header
-  class="fixed top-0 inset-x-0 z-50 border-b border-line bg-ink/70 backdrop-blur-md"
->
+<header class="fixed top-0 inset-x-0 z-50 bg-paper border-b-3 border-ink">
   <nav
-    class="max-w-content mx-auto px-6 md:px-10 h-16 flex items-center justify-between"
+    class="max-w-content mx-auto px-5 md:px-8 h-[72px] flex items-center justify-between gap-4"
   >
     <a
       href="#top"
-      class="font-mono text-sm tracking-tight text-txt hover:text-accent transition-colors"
+      class="font-mono font-bold text-base tracking-tight"
       aria-label="Back to top"
     >
-      aadil<span class="text-accent">.</span>hassan
+      AADIL<span class="text-accent">.</span>HASSAN
     </a>
 
-    <div class="flex items-center gap-5 md:gap-6">
-      <ul class="hidden md:flex items-center gap-7">
+    <div class="flex items-center gap-2 md:gap-4">
+      <ul class="hidden md:flex items-center">
         {
           links.map((l) => (
             <li>
               <a
                 href={l.href}
-                class="nav-link font-mono text-[13px] text-muted hover:text-txt transition-colors"
+                class="font-mono text-[13px] font-medium px-3 py-2 hover:bg-sun hover:outline hover:outline-3 hover:outline-ink"
               >
                 {l.label}
               </a>
@@ -42,39 +40,10 @@ const links = [
         href={profile.resume}
         target="_blank"
         rel="noopener"
-        class="font-mono text-[13px] px-3.5 py-1.5 rounded-md border border-line text-txt hover:border-accent hover:text-accent transition-colors"
+        class="font-mono text-[13px] font-bold bg-accent text-paper border-3 border-ink px-4 py-2 shadow-brutal-sm hover:bg-ink"
       >
-        Résumé
+        RÉSUMÉ ↓
       </a>
     </div>
   </nav>
 </header>
-
-<script>
-  // Highlight the nav link for the section currently in view.
-  const links = document.querySelectorAll<HTMLAnchorElement>(".nav-link");
-  const byId = new Map<string, HTMLAnchorElement>();
-  links.forEach((l) => {
-    const id = l.getAttribute("href")?.slice(1);
-    if (id) byId.set(id, l);
-  });
-  const sections = document.querySelectorAll("section[id]");
-  const io = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          links.forEach((l) => l.classList.remove("active"));
-          byId.get(entry.target.id)?.classList.add("active");
-        }
-      });
-    },
-    { threshold: 0.5, rootMargin: "-20% 0px -60% 0px" }
-  );
-  sections.forEach((s) => io.observe(s));
-</script>
-
-<style>
-  .nav-link.active {
-    color: #eae7e0;
-  }
-</style>

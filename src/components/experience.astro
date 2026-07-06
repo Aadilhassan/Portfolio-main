@@ -3,58 +3,59 @@ import SectionHeading from "@/components/sectionHeading.astro";
 import { experience, education } from "@/data/site";
 ---
 
-<section
-  id="experience"
-  class="max-w-content mx-auto px-6 md:px-10 py-20 md:py-28"
->
-  <SectionHeading index="02" title="Experience" />
+<section id="experience" class="border-b-3 border-ink">
+  <div class="max-w-content mx-auto px-5 md:px-8 py-16 md:py-24">
+    <SectionHeading index="02" title="Experience" />
 
-  <div class="flex flex-col">
-    {
-      experience.map((job) => (
-        <article
-          data-reveal
-          class="grid md:grid-cols-[13rem_1fr] gap-x-8 gap-y-3 border-t border-line py-8 md:py-10"
-        >
-          <div>
-            <div class="font-mono text-[13px] text-accent">{job.period}</div>
-            <div class="font-mono text-[12px] text-faint mt-1">
-              {job.location}
+    <div class="border-3 border-ink shadow-brutal bg-paper">
+      {
+        experience.map((job, i) => (
+          <article
+            class:list={[
+              "grid md:grid-cols-[15rem_1fr]",
+              i > 0 && "border-t-3 border-ink",
+            ]}
+          >
+            <div class="border-b-3 md:border-b-0 md:border-r-3 border-ink bg-sun p-5">
+              <div class="font-mono text-[13px] font-bold">{job.period}</div>
+              <div class="font-mono text-[12px] mt-1">{job.location}</div>
             </div>
-          </div>
 
-          <div>
-            <h3 class="text-xl md:text-2xl font-semibold tracking-tight">
-              {job.role}
-              <span class="text-muted font-normal"> · {job.company}</span>
-            </h3>
-            <ul class="mt-4 space-y-2.5">
-              {job.points.map((pt) => (
-                <li class="flex gap-3 text-[15px] text-muted leading-relaxed">
-                  <span class="text-accent mt-2 shrink-0 h-1 w-1 rounded-full bg-accent" />
-                  <span>{pt}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </article>
-      ))
-    }
-
-    <div
-      data-reveal
-      class="grid md:grid-cols-[13rem_1fr] gap-x-8 gap-y-3 border-t border-line py-8 md:py-10"
-    >
-      <div class="font-mono text-[13px] text-accent">Education</div>
-      <div class="space-y-4">
-        {
-          education.map((e) => (
-            <div>
-              <div class="text-lg font-semibold tracking-tight">{e.school}</div>
-              <div class="text-[15px] text-muted">{e.detail}</div>
+            <div class="p-5 md:p-6">
+              <h3 class="font-display text-lg md:text-xl uppercase">
+                {job.role}
+                <span class="font-mono font-normal normal-case text-muted text-base">
+                  {" "}
+                  @ {job.company}
+                </span>
+              </h3>
+              <ul class="mt-4 space-y-2.5">
+                {job.points.map((pt) => (
+                  <li class="flex gap-3 text-[15px] md:text-base leading-relaxed">
+                    <span class="mt-2 shrink-0 h-2.5 w-2.5 bg-accent border-2 border-ink" />
+                    <span>{pt}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-          ))
-        }
+          </article>
+        ))
+      }
+
+      <div class="grid md:grid-cols-[15rem_1fr] border-t-3 border-ink">
+        <div class="border-b-3 md:border-b-0 md:border-r-3 border-ink bg-ink text-paper p-5">
+          <div class="font-mono text-[13px] font-bold uppercase">Education</div>
+        </div>
+        <div class="p-5 md:p-6 space-y-4">
+          {
+            education.map((e) => (
+              <div>
+                <div class="font-display text-base uppercase">{e.school}</div>
+                <div class="text-[15px] text-muted">{e.detail}</div>
+              </div>
+            ))
+          }
+        </div>
       </div>
     </div>
   </div>

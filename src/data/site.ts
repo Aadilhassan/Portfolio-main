@@ -62,15 +62,20 @@ export const projects: Project[] = [
     description:
       "AI content, social publishing, email, SEO and rank-tracking, landing pages and a lead CRM — all driven by an AI chat command-center, with per-workspace cost metering and Stripe billing.",
     stack: ["Next.js", "Supabase (RLS/RBAC)", "OpenAI / Claude", "Vercel"],
+    links: [{ label: "marketifyall.com", href: "https://marketifyall.com" }],
   },
   {
     name: "Marketify Design Editor",
     kind: "Open-source Canva alternative · AI-powered",
     description:
-      "A free, open-source graphic-design tool — a Canva alternative with a full canvas engine, 1000+ fonts, stock photos, templates and watermark-free export, plus built-in GPT-4 and Claude for AI-assisted design. Live and open-sourced.",
+      "A free, open-source graphic-design tool — a Canva alternative with a full canvas engine, 1000+ fonts, stock photos, templates and watermark-free export, plus built-in GPT-4 and Claude for AI-assisted design. Its core editor kit is published on npm as @marketifyall/design-editor-kit.",
     stack: ["React", "TypeScript", "FabricJS", "Supabase"],
     links: [
       { label: "design.marketifyall.com", href: "https://design.marketifyall.com" },
+      {
+        label: "npm: design-editor-kit",
+        href: "https://www.npmjs.com/package/@marketifyall/design-editor-kit",
+      },
       { label: "GitHub", href: "https://github.com/Aadilhassan/Marketifyall-design-Editor" },
     ],
   },
@@ -108,7 +113,7 @@ export const projects: Project[] = [
 ];
 
 export const alsoBuilt =
-  "penpot-mcp (published MCP server for LLM-driven design edits) · Cortex (RAG voice tutor, Dockerized) · a multimodal vision → Qdrant RAG pipeline · an MCP-backed personal-finance dashboard.";
+  "penpot-mcp (MCP server for LLM-driven design edits) · Cortex (RAG voice tutor, Dockerized) · a multimodal vision → Qdrant RAG pipeline · an MCP-backed personal-finance dashboard.";
 
 export interface Job {
   company: string;

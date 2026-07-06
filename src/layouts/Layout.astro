@@ -1,7 +1,9 @@
 ---
-import "@fontsource-variable/hanken-grotesk";
+import "@fontsource/archivo-black";
+import "@fontsource-variable/archivo";
 import "@fontsource/ibm-plex-mono/400.css";
 import "@fontsource/ibm-plex-mono/500.css";
+import "@fontsource/ibm-plex-mono/700.css";
 import { profile } from "@/data/site";
 
 interface Props {
@@ -30,7 +32,7 @@ const siteURL = "https://aadilhassan.in";
     <meta name="author" content="Aadil Hassan" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalURL} />
-    <meta name="theme-color" content="#0F0F0E" />
+    <meta name="theme-color" content="#FAF6EE" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -84,99 +86,49 @@ const siteURL = "https://aadilhassan.in";
       })}
     />
   </head>
-  <body class="bg-ink text-txt antialiased">
+  <body class="bg-paper text-ink antialiased">
     <slot />
-    <script is:inline>
-      // Scroll reveal — respects reduced-motion.
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const els = document.querySelectorAll("[data-reveal]");
-      if (reduce || !("IntersectionObserver" in window)) {
-        els.forEach((el) => el.classList.add("is-visible"));
-      } else {
-        const io = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add("is-visible");
-                io.unobserve(entry.target);
-              }
-            });
-          },
-          { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
-        );
-        els.forEach((el) => io.observe(el));
-      }
-    </script>
   </body>
 </html>
 
 <style is:global>
   html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 84px;
+    scroll-padding-top: 90px;
     -webkit-text-size-adjust: 100%;
   }
 
   body {
-    font-family: "Hanken Grotesk Variable", system-ui, sans-serif;
-    line-height: 1.6;
+    font-family: "Archivo Variable", system-ui, sans-serif;
+    line-height: 1.55;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
   }
 
   ::selection {
-    background-color: #d8a657;
-    color: #0f0f0e;
+    background-color: #ffd02f;
+    color: #141414;
   }
 
   ::-webkit-scrollbar {
-    width: 10px;
+    width: 14px;
   }
   ::-webkit-scrollbar-track {
-    background: #0f0f0e;
+    background: #faf6ee;
+    border-left: 3px solid #141414;
   }
   ::-webkit-scrollbar-thumb {
-    background: #2a2a25;
-    border-radius: 10px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #3a3a33;
+    background: #141414;
   }
   * {
     scrollbar-width: thin;
-    scrollbar-color: #2a2a25 #0f0f0e;
+    scrollbar-color: #141414 #faf6ee;
   }
 
-  /* Scroll reveal */
-  [data-reveal] {
-    opacity: 0;
-    transform: translateY(14px);
-    transition:
-      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  [data-reveal].is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
-    [data-reveal] {
-      transition: none;
-    }
-  }
-
-  /* Animated link underline for inline text links */
-  .link-underline {
-    background-image: linear-gradient(#d8a657, #d8a657);
-    background-size: 0% 1px;
-    background-position: 0 100%;
-    background-repeat: no-repeat;
-    transition: background-size 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .link-underline:hover {
-    background-size: 100% 1px;
+  /* No animation anywhere. */
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
   }
 </style>

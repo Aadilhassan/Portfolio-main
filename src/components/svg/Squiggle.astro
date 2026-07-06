@@ -1,0 +1,23 @@
+---
+// Wavy hand-drawn underline.
+interface Props {
+  class?: string;
+  stroke?: string;
+}
+const { class: className = "w-40 h-4", stroke = "#FF4D00" } = Astro.props;
+---
+
+<svg
+  class={className}
+  viewBox="0 0 160 16"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  preserveAspectRatio="none"
+  aria-hidden="true"
+>
+  <path
+    d="M2 10 Q 12 2 22 9 T 42 9 T 62 10 T 82 8 T 102 10 T 122 8 T 142 10 T 158 8"
+    stroke={stroke}
+    stroke-width="4"
+    stroke-linecap="round"></path>
+</svg>

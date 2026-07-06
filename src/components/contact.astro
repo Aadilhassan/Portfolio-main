@@ -1,47 +1,63 @@
 ---
+import Burst from "@/components/svg/Burst.astro";
+import Squiggle from "@/components/svg/Squiggle.astro";
 import { profile } from "@/data/site";
 ---
 
-<section
-  id="contact"
-  class="max-w-content mx-auto px-6 md:px-10 py-24 md:py-36"
->
-  <div class="max-w-3xl">
-    <p data-reveal class="font-mono text-[13px] text-accent">04 / Contact</p>
+<section id="contact">
+  <div class="max-w-content mx-auto px-5 md:px-8 py-20 md:py-28">
+    <div class="flex items-center gap-4">
+      <span
+        class="font-mono font-bold text-sm bg-ink text-paper px-3 py-2 border-3 border-ink"
+        >04</span
+      >
+      <span class="font-mono text-sm font-bold uppercase">Contact</span>
+      <Burst class="w-6 h-6" fill="#FF4D00" />
+    </div>
+
     <h2
-      data-reveal
-      style="transition-delay:60ms"
-      class="mt-5 text-4xl md:text-6xl font-semibold tracking-tight leading-[1.02] text-balance"
+      class="mt-8 font-display text-4xl sm:text-6xl md:text-7xl uppercase leading-[0.95] max-w-4xl"
     >
-      Let's build something that ships.
+      Let's build something that
+      <span class="bg-sun px-2 -mx-1 box-decoration-clone">ships.</span>
     </h2>
-    <p
-      data-reveal
-      style="transition-delay:120ms"
-      class="mt-6 text-lg text-muted leading-relaxed max-w-xl"
-    >
+
+    <Squiggle class="w-64 h-4 mt-6" />
+
+    <p class="mt-8 text-lg md:text-xl leading-relaxed max-w-xl">
       Open to senior full-stack and AI engineering roles, and to interesting
       contract work. The fastest way to reach me is email.
     </p>
 
-    <div data-reveal style="transition-delay:180ms" class="mt-8">
+    <div class="mt-10">
       <a
         href={`mailto:${profile.email}`}
-        class="link-underline inline-block text-2xl md:text-4xl font-semibold tracking-tight text-txt hover:text-accent transition-colors break-all"
+        class="inline-block font-mono font-bold text-lg md:text-2xl bg-paper border-3 border-ink px-6 py-4 shadow-brutal-lg hover:bg-sun break-all"
       >
         {profile.email}
       </a>
     </div>
 
-    <div
-      data-reveal
-      style="transition-delay:240ms"
-      class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 font-mono text-[13px]"
-    >
-      <a href={profile.github} target="_blank" rel="noopener me" class="text-muted hover:text-accent transition-colors">GitHub ↗</a>
-      <a href={profile.linkedin} target="_blank" rel="noopener me" class="text-muted hover:text-accent transition-colors">LinkedIn ↗</a>
-      <a href={profile.resume} target="_blank" rel="noopener" class="text-muted hover:text-accent transition-colors">Résumé (PDF) ↓</a>
-      <span class="text-faint">{profile.location}</span>
+    <div class="mt-10 flex flex-wrap items-center gap-4 font-mono text-sm font-bold">
+      <a
+        href={profile.github}
+        target="_blank"
+        rel="noopener me"
+        class="underline decoration-accent decoration-4 underline-offset-4 hover:bg-sun">GITHUB ↗</a
+      >
+      <a
+        href={profile.linkedin}
+        target="_blank"
+        rel="noopener me"
+        class="underline decoration-accent decoration-4 underline-offset-4 hover:bg-sun">LINKEDIN ↗</a
+      >
+      <a
+        href={profile.resume}
+        target="_blank"
+        rel="noopener"
+        class="underline decoration-accent decoration-4 underline-offset-4 hover:bg-sun">RÉSUMÉ ↓</a
+      >
+      <span class="text-muted font-medium">⌂ {profile.location}</span>
     </div>
   </div>
 </section>
