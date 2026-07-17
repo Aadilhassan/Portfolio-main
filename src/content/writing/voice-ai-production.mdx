@@ -1,0 +1,56 @@
+---
+title: "Building voice AI that doesn't sound like a robot"
+date: "2026-06-28"
+excerpt: "The difference between a voice demo and a production voice agent is about 200ms and a barge-in system. Here's what it actually takes."
+description: "Deep dive into building production-grade real-time voice AI: latency targets, barge-in, RAG grounding, and post-call eval loops."
+---
+
+Everyone has a voice AI demo these days. Hook up ElevenLabs to an LLM, pipe it through Twilio, record a 30-second video, post on Twitter. It sounds great. It works once — in the exact scenario you rehearsed.
+
+Production voice AI is different. Here's what separates demos from systems people actually use.
+
+## The 500ms rule
+
+If the gap between the user finishing a sentence and the agent starting its response exceeds 500ms, the conversation feels robotic. Users don't consciously time this — they just feel it's "off" and hang up faster.
+
+Standard cloud LLM APIs (even GPT-4o) have variable latency that regularly spikes above 1 second. That's already too slow. Add STT latency (Deepgram: ~200ms under good conditions), TTS latency (ElevenLabs: ~300ms), and WebSocket overhead, and you're easily at 2+ seconds end-to-end.
+
+The fix: Groq for inference. Their LPU architecture consistently delivers sub-300ms LLM responses. Combined with streaming STT (processing audio frames as they arrive, not after the user stops speaking) you can keep total latency under 500ms. The conversation feels natural.
+
+## Barge-in is not optional
+
+In demos, the user politely waits for the agent to finish speaking before responding. In real conversations, people interrupt constantly. They interrupt to correct. They interrupt because they already got the answer mid-sentence. They interrupt because that's how humans talk.
+
+Without barge-in, your voice agent sounds like a customer service IVR from 2005. Users get frustrated after about 20 seconds and hang up.
+
+Implementing barge-in means monitoring the input audio stream during TTS playback and detecting voice activity. When speech is detected, you stop TTS output, process the interruption as a new user turn, and respond. The tricky part: TTS playback and STT input share the same audio channel. You need careful buffer management to avoid the agent hearing itself.
+
+The AI Voice Call Center handles this by routing TTS output to the call audio while keeping STT listening on a separate channel. Voice activity detection uses a threshold-based approach — if the user's audio energy exceeds a configurable threshold for more than 100ms during playback, barge-in triggers.
+
+## RAG grounding: your knowledge base, not the internet
+
+A voice agent without domain knowledge is just a chatbot with a voice. Users asking "what's your return policy" don't want GPT-4's general knowledge. They want your specific return policy, exact dates, exact conditions.
+
+Qdrant vector search + the business's knowledge base provides this. Before every response, the agent retrieves relevant documents from Qdrant and includes them in the LLM context. This isn't optional — ungrounded voice agents hallucinate. Grounded ones cite your actual documents.
+
+The key implementation detail: retrieval quality matters enormously. Bad chunking, poor embedding models, or stale documents produce confidently wrong answers. You need a systematic eval loop to measure retrieval quality, not just trust it.
+
+## Post-call evaluation: the feedback loop
+
+The most valuable part of the voice call center isn't the voice pipeline. It's the eval loop that runs after every call.
+
+After each conversation ends, a separate LLM call scores the full transcript on:
+- Resolution quality (did the user's question get answered?)
+- Tone (was the agent helpful and professional?)
+- Accuracy (did responses match the knowledge base?)
+- Completeness (were follow-ups needed?)
+
+Low-scoring calls are flagged for review. Patterns in low scores feed back into prompt improvements. This turns a static system into one that improves over time.
+
+Without this, you're running a voice agent blindfolded. You have no idea if it's working, no idea if it's getting worse, and no mechanism to improve. The eval loop is the difference between a one-time demo and a system that gets better every week.
+
+## What I'd do differently
+
+Barge-in was harder than expected. Audio pipeline management — separating playback from input, tuning VAD thresholds, handling network jitter — took weeks longer than the core conversation logic. Next time, I'd budget 40% of the timeline for audio engineering, not 10%.
+
+Also: multi-language. The system works in English. Expanding to Hindi, Spanish, Mandarin would require per-language STT/TTS providers and translated knowledge bases. If I'd designed for this from the start, the architecture would look different. Retrofit is always harder.
