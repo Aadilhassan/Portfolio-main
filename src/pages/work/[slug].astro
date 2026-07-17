@@ -1,0 +1,51 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Nav from "@/components/nav.astro";
+import Footer from "@/components/footer.astro";
+import CaseStudyLayout from "@/components/caseStudyLayout.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("work");
+  return entries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+const projectSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: entry.data.title,
+  description: entry.data.description,
+  applicationCategory: entry.data.kind,
+  datePublished: entry.data.year || "2024",
+  author: {
+    "@type": "Person",
+    name: "Aadil Hassan",
+  },
+};
+---
+
+<Layout
+  title={`${entry.data.title} — Aadil Hassan`}
+  description={entry.data.description}
+  structuredData={[projectSchema]}
+>
+  <Nav />
+  <main>
+    <CaseStudyLayout
+      title={entry.data.title}
+      kind={entry.data.kind}
+      year={entry.data.year}
+      stack={entry.data.stack}
+      links={entry.data.links as { label: string; href: string }[] | undefined}
+    >
+      <Content />
+    </CaseStudyLayout>
+  </main>
+  <Footer />
+</Layout>

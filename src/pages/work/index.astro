@@ -1,0 +1,55 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Nav from "@/components/nav.astro";
+import Footer from "@/components/footer.astro";
+import ProjectCard from "@/components/projectCard.astro";
+import { projects } from "@/data/site";
+
+const slugMap: Record<string, string> = {
+  "Dealer's Dash": "dealers-dash",
+  MarketifyALL: "marketifyall",
+  "email-probe": "email-probe",
+  "AI Voice Call Center": "voice-call-center",
+  RankOps: "rankops",
+  RealStateVideo: "realstatevideo",
+};
+---
+
+<Layout title="Work — Aadil Hassan" description="Selected projects: AI platforms, SaaS products, open-source tools, and developer infrastructure.">
+  <Nav />
+  <main>
+    <section class="border-b border-rule">
+      <div class="max-w-content mx-auto px-5 md:px-8 pt-24 md:pt-32 pb-20 md:pb-32">
+        <p class="font-mono text-[12px] font-bold uppercase tracking-wider text-muted mb-4">
+          Work
+        </p>
+        <h1 class="font-display text-4xl sm:text-5xl md:text-6xl leading-[1.0]">
+          Selected projects.
+        </h1>
+        <p class="mt-6 text-lg text-muted max-w-body leading-relaxed">
+          AI platforms, SaaS products, open-source tools, and developer infrastructure — built end to end, mostly solo.
+        </p>
+      </div>
+    </section>
+
+    <section class="border-b border-rule">
+      <div class="max-w-content mx-auto px-5 md:px-8 pb-20 md:pb-32">
+        <div class="grid gap-6">
+          {
+            projects.map((p, i) => (
+              <ProjectCard project={p} index={i} slug={slugMap[p.name]} />
+            ))
+          }
+        </div>
+
+        <div class="mt-12 border border-rule p-6">
+          <p class="text-base leading-relaxed">
+            <span class="font-mono font-bold text-sm uppercase">Also built /</span>
+            <span class="text-muted"> penpot-mcp (MCP server for LLM-driven design edits) · Cortex (RAG voice tutor, Dockerized) · a multimodal vision → Qdrant RAG pipeline · an MCP-backed personal-finance dashboard.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

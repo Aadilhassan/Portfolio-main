@@ -1,0 +1,56 @@
+---
+title: "MarketifyALL"
+kind: "Multi-tenant marketing SaaS · 170 active users"
+year: "2024"
+stack: ["Next.js", "Supabase (RLS/RBAC)", "OpenAI / Claude", "Vercel"]
+featured: true
+description: "Multi-tenant marketing platform taken from empty repo to 170 active users — AI content, social publishing, email, SEO, lead CRM, with per-workspace LLM cost metering and Stripe billing."
+category: "saas"
+order: 2
+links:
+  - label: "marketifyall.com"
+    href: "https://marketifyall.com"
+---
+
+MarketifyALL is a multi-tenant marketing SaaS that combines AI content generation, social media publishing, email marketing, SEO tracking, landing pages, and a lead CRM — all driven by an AI chat command-center. Built from empty repo to 170 active users with per-workspace LLM cost metering and Stripe billing.
+
+## The Problem
+
+Small marketing teams juggle 5–8 separate tools: one for content, one for social scheduling, one for email, one for SEO, one for landing pages, one for CRM. Each tool has its own login, its own data, and its own learning curve. Context-switching kills productivity, and none of the tools talk to each other.
+
+Existing all-in-one platforms (HubSpot, etc.) are expensive and overbuilt for small teams. What was missing: a single command-center where you could say "write a blog post about X, schedule it to LinkedIn, and create a landing page" — and have it actually happen.
+
+## The Approach
+
+**AI chat command-center.** Every action starts from a natural-language command. "Write a LinkedIn post about our new feature" or "Create a landing page for the spring sale" — the AI interprets intent, executes across modules, and reports back.
+
+**Multi-tenant architecture** with Supabase RLS (Row Level Security) and RBAC (Role-Based Access Control). Each workspace is fully isolated. Per-workspace LLM cost metering tracks token usage and spend per tenant — critical for a SaaS where LLM costs can spiral.
+
+**Stripe billing** with usage-based pricing. Each workspace has a plan, and LLM costs are metered and billed on top of the base subscription.
+
+**Modular feature set:**
+- AI content generation (blog posts, social captions, email copy)
+- Social publishing (Facebook, Instagram, X, LinkedIn)
+- Email marketing with templates and scheduling
+- SEO rank tracking and site audits
+- Landing page builder
+- Lead CRM with pipeline management
+
+## Key Decisions
+
+**Supabase over custom backend.** Row Level Security handles multi-tenant isolation at the database level — no application-level tenant filtering bugs possible. Real-time subscriptions handle live updates across team members. Auth, storage, and edge functions included.
+
+**Per-workspace LLM cost metering.** Every LLM call is tagged with the workspace ID and model used. Token counts are logged and aggregated. This prevents one tenant's usage from silently eating into margins — a common failure mode in AI SaaS.
+
+**Next.js + Vercel.** The team is small (solo-built). Next.js App Router with server components handles the complexity of multi-tenant data fetching without a separate backend server. Vercel handles deployment, preview environments, and edge caching.
+
+## Results
+
+- **170 active users** on the free tier
+- **Zero infrastructure management** — Vercel + Supabase handle scaling
+- **Per-workspace cost visibility** — every tenant's LLM spend is tracked and billable
+- **Full feature parity** with standalone tools (content, social, email, SEO, CRM) in one interface
+
+## Retrospective
+
+The chat-first UX was the right bet — users who tried it adopted it as their primary workflow. The cost metering system prevented what would have been an existential problem (uncontrolled LLM costs). If rebuilding, I'd add more structured evals for content quality, and I'd consider a stronger onboarding flow — the command-center is powerful but has a learning curve for users expecting a traditional dashboard.

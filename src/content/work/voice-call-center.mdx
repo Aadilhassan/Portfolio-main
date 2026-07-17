@@ -1,0 +1,48 @@
+---
+title: "AI Voice Call Center"
+kind: "Autonomous phone agents"
+year: "2025"
+stack: ["Next.js", "PostgreSQL", "Redis", "Twilio"]
+description: "Real-time voice agent over Twilio Media Streams — Deepgram STT, ElevenLabs TTS, Groq-served LLMs, Qdrant RAG, with barge-in, post-call eval loops, and an embeddable widget."
+category: "ai"
+order: 4
+links: []
+---
+
+An autonomous real-time voice agent built end to end: live phone calls over Twilio Media Streams, with Deepgram for speech-to-text, ElevenLabs for text-to-speech, Groq-served LLMs for conversation, Qdrant RAG for knowledge grounding, barge-in for natural interaction, and a post-call evaluation loop that scores conversations and feeds improvements back into prompts. Shipped with a one-line embeddable widget.
+
+## The Problem
+
+Businesses need phone support but hiring, training, and retaining call center staff is expensive and unreliable. Existing AI voice solutions either sound robotic (long latency), can't handle interruptions (no barge-in), lack domain knowledge (no RAG), or don't improve over time (no eval loop). The gap: a voice agent that sounds natural, handles real conversations, knows the business, and gets better automatically.
+
+## The Approach
+
+**Twilio Media Streams** handles the telephony layer — inbound and outbound calls streamed as real-time audio. The agent runs as a WebSocket server that processes audio frames.
+
+**Deepgram STT** converts speech to text with low latency. **ElevenLabs TTS** generates natural-sounding speech. **Groq** serves LLM inference at speeds fast enough for sub-second conversational turns.
+
+**Barge-in** — the user can interrupt the agent mid-sentence. The system detects voice activity during playback, stops TTS output, and processes the interruption as a new user turn. This is critical for natural conversation — people interrupt constantly.
+
+**Qdrant RAG** grounds every response in the business's knowledge base. The agent doesn't hallucinate answers — it retrieves relevant context from Qdrant before generating a response.
+
+**Post-call eval loop** — after every call, an LLM scores the conversation on resolution quality, tone, accuracy, and completeness. Low-scoring conversations are flagged for review. Patterns in low scores feed back into prompt improvements.
+
+## Key Decisions
+
+**Groq for inference speed.** Conversational voice AI needs sub-500ms response times. Groq's LPU inference delivers LLM responses fast enough that conversations feel natural. Standard cloud LLM APIs were too slow for real-time voice.
+
+**Barge-in via voice activity detection.** Rather than a button or keyword, the system listens for speech during TTS playback and automatically interrupts. This requires careful audio pipeline management — TTS output and STT input share the same audio channel.
+
+**Post-call evaluation as a separate LLM call.** Scoring happens asynchronously after the call ends, using a different LLM call with the full transcript. This doesn't add latency to the live conversation but provides systematic quality measurement.
+
+## Results
+
+- **Sub-second conversational turns** with barge-in
+- **Knowledge-grounded responses** via RAG — no hallucinated answers
+- **Automatic quality improvement** via post-call eval loop
+- **One-line embeddable widget** for integration into any website
+- Handles **inbound and outbound** calls
+
+## Retrospective
+
+The eval loop is the most valuable part — it turned a static system into one that improves over time. Barge-in was harder than expected (audio pipeline management is tricky) but it's what separates a demo from a production system. If rebuilding, I'd invest more in turn-taking intelligence (knowing when the user is done speaking vs. pausing to think) and add multi-language support.

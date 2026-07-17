@@ -1,0 +1,62 @@
+---
+import Breadcrumb from "@/components/breadcrumb.astro";
+
+interface Props {
+  title: string;
+  kind: string;
+  year?: string;
+  stack: string[];
+  links?: { label: string; href: string }[];
+}
+
+const { title, kind, year, stack, links } = Astro.props;
+---
+
+<div>
+  <div class="border-b border-rule">
+    <div class="max-w-content mx-auto px-5 md:px-8 pt-24 md:pt-32 pb-12 md:pb-16">
+      <Breadcrumb items={[{ label: "Work", href: "/work" }, { label: title }]} />
+
+      <h1 class="mt-6 font-display text-4xl sm:text-5xl md:text-6xl leading-[1.0]">
+        {title}
+      </h1>
+
+      <p class="mt-4 font-mono text-[13px] font-medium text-muted uppercase tracking-wide">
+        {kind}
+      </p>
+
+      {year && (
+        <p class="mt-2 font-mono text-[12px] text-muted">{year}</p>
+      )}
+
+      <div class="mt-6 flex flex-wrap gap-2">
+        {stack.map((s) => (
+          <span class="font-mono text-[11px] font-medium border border-rule px-2.5 py-1 text-muted">
+            {s}
+          </span>
+        ))}
+      </div>
+
+      {links && links.length > 0 && (
+        <div class="mt-6 flex flex-wrap gap-4">
+          {links.map((l) => (
+            <a
+              href={l.href}
+              target="_blank"
+              rel="noopener"
+              class="font-mono text-[13px] font-medium text-accent hover:underline underline-offset-4"
+            >
+              {l.label} ↗
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+
+  <div class="max-w-content mx-auto px-5 md:px-8 py-16 md:py-20">
+    <article class="max-w-body">
+      <slot />
+    </article>
+  </div>
+</div>
