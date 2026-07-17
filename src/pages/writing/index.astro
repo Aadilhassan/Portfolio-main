@@ -1,0 +1,82 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Nav from "@/components/nav.astro";
+import Footer from "@/components/footer.astro";
+import { getCollection } from "astro:content";
+
+const posts = await getCollection("writing");
+const sorted = posts.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+
+const blogSchema = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  name: "Aadil Hassan — Writing",
+  url: "https://aadilhassan.in/writing",
+  description: "Thoughts on AI engineering, product development, and building software end to end.",
+  author: {
+    "@type": "Person",
+    name: "Aadil Hassan",
+    url: "https://aadilhassan.in",
+  },
+};
+---
+
+<Layout
+  title="Writing — Aadil Hassan"
+  description="Thoughts on AI engineering, product development, and building software end to end."
+  structuredData={[blogSchema]}
+>
+  <Nav />
+  <main>
+    <section class="border-b border-rule">
+      <div class="max-w-content mx-auto px-5 md:px-8 pt-24 md:pt-32 pb-20 md:pb-32">
+        <p class="font-mono text-[12px] font-bold uppercase tracking-wider text-muted mb-4">
+          Writing
+        </p>
+        <h1 class="font-display text-4xl sm:text-5xl md:text-6xl leading-[1.0]">
+          Thoughts & notes.
+        </h1>
+        <p class="mt-6 text-lg text-muted max-w-body leading-relaxed">
+          Occasional writing on AI engineering, product development, and the realities of building software end to end.
+        </p>
+      </div>
+    </section>
+
+    <section class="border-b border-rule">
+      <div class="max-w-content mx-auto px-5 md:px-8 pb-20 md:pb-32">
+        {sorted.length === 0 ? (
+          <p class="text-lg text-muted">Coming soon.</p>
+        ) : (
+          <div class="grid gap-6">
+            {sorted.map((post) => (
+              <a
+                href={`/writing/${post.slug}`}
+                class="group block border border-rule p-6 hover:border-ink"
+              >
+                <div class="flex items-baseline justify-between gap-4">
+                  <h2 class="font-display text-lg uppercase">{post.data.title}</h2>
+                  <time
+                    class="font-mono text-[12px] text-muted shrink-0"
+                    datetime={post.data.date}
+                  >
+                    {new Date(post.data.date).toLocaleDateString("en-US", {
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </time>
+                </div>
+                <p class="mt-3 text-base text-muted leading-relaxed">{post.data.excerpt}</p>
+                <span class="mt-3 inline-block font-mono text-[12px] font-medium text-accent group-hover:underline underline-offset-4">
+                  Read →
+                </span>
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

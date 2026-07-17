@@ -1,0 +1,81 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Nav from "@/components/nav.astro";
+import Footer from "@/components/footer.astro";
+import Breadcrumb from "@/components/breadcrumb.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("writing");
+  return entries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: entry.data.title,
+  description: entry.data.description,
+  datePublished: entry.data.date,
+  author: {
+    "@type": "Person",
+    name: "Aadil Hassan",
+    url: "https://aadilhassan.in",
+  },
+  publisher: {
+    "@type": "Person",
+    name: "Aadil Hassan",
+  },
+};
+---
+
+<Layout
+  title={`${entry.data.title} — Aadil Hassan`}
+  description={entry.data.description}
+  structuredData={[articleSchema]}
+>
+  <Nav />
+  <main>
+    <div class="border-b border-rule">
+      <div class="max-w-content mx-auto px-5 md:px-8 pt-24 md:pt-32 pb-12 md:pb-16">
+        <Breadcrumb items={[{ label: "Writing", href: "/writing" }, { label: entry.data.title }]} />
+
+        <h1 class="mt-6 font-display text-3xl sm:text-4xl md:text-5xl leading-[1.1] max-w-3xl">
+          {entry.data.title}
+        </h1>
+
+        <time
+          class="mt-4 block font-mono text-[12px] text-muted"
+          datetime={entry.data.date}
+        >
+          {new Date(entry.data.date).toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+          })}
+        </time>
+      </div>
+    </div>
+
+    <div class="max-w-content mx-auto px-5 md:px-8 py-12 md:py-16">
+      <article class="max-w-body">
+        <Content />
+      </article>
+
+      <div class="mt-16 pt-8 border-t border-rule">
+        <a
+          href="/writing"
+          class="font-mono text-sm font-medium text-accent hover:underline underline-offset-4"
+        >
+          ← All writing
+        </a>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>
