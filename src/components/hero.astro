@@ -1,92 +1,38 @@
 ---
-import { profile, stats } from "@/data/site";
-import Burst from "@/components/svg/Burst.astro";
-import Squiggle from "@/components/svg/Squiggle.astro";
-import ArrowScribble from "@/components/svg/ArrowScribble.astro";
-import Terminal from "@/components/svg/Terminal.astro";
+import { profile } from "@/data/site";
 ---
 
-<section id="top" class="border-b-3 border-ink">
-  <div class="max-w-content mx-auto px-5 md:px-8 pt-32 md:pt-40 pb-12 md:pb-16">
-    <div class="grid lg:grid-cols-[1.25fr_1fr] gap-12 items-center">
-      <div>
-        <p
-          class="inline-flex items-center gap-2 font-mono text-[13px] font-bold border-3 border-ink bg-sun px-3 py-1.5 shadow-brutal-sm"
-        >
-          <Burst class="w-4 h-4" fill="#FF4D00" />
-          {profile.title.toUpperCase()} — AVAILABLE FOR WORK
-        </p>
+<section id="top" class="border-b border-rule">
+  <div class="max-w-content mx-auto px-5 md:px-8 pt-24 md:pt-32 pb-16 md:pb-20">
+    <p class="font-mono text-[12px] font-bold uppercase tracking-wider text-muted">
+      {profile.title.toUpperCase()} — AVAILABLE FOR WORK
+    </p>
 
-        <h1
-          class="mt-7 font-display text-[17vw] sm:text-7xl md:text-8xl leading-[0.92] uppercase"
-        >
-          Aadil<br />
-          <span class="bg-sun px-2 -mx-2 box-decoration-clone">Hassan</span>
-        </h1>
+    <h1 class="mt-6 font-display text-[14vw] sm:text-7xl md:text-8xl lg:text-[7rem] leading-[0.95]">
+      Aadil Hassan
+    </h1>
 
-        <Squiggle class="w-56 h-4 mt-5" />
+    <p class="mt-8 max-w-body text-lg md:text-xl leading-relaxed text-muted">
+      {profile.tagline}
+    </p>
 
-        <p class="mt-6 max-w-xl text-lg md:text-xl leading-relaxed">
-          {profile.tagline}
-        </p>
-
-        <div class="mt-8 flex flex-wrap items-center gap-4">
-          <a
-            href={`mailto:${profile.email}`}
-            class="font-mono font-bold text-sm bg-accent text-paper border-3 border-ink px-6 py-3.5 shadow-brutal hover:bg-ink"
-          >
-            GET IN TOUCH →
-          </a>
-          <a
-            href={profile.github}
-            target="_blank"
-            rel="noopener me"
-            class="font-mono font-bold text-sm bg-paper border-3 border-ink px-5 py-3.5 shadow-brutal hover:bg-sun"
-          >
-            GITHUB
-          </a>
-          <a
-            href={profile.linkedin}
-            target="_blank"
-            rel="noopener me"
-            class="font-mono font-bold text-sm bg-paper border-3 border-ink px-5 py-3.5 shadow-brutal hover:bg-sun"
-          >
-            LINKEDIN
-          </a>
-        </div>
-
-        <p class="mt-8 font-mono text-[13px] font-medium text-muted">
-          ⌂ {profile.location} · {profile.availability}
-        </p>
-      </div>
-
-      <div class="hidden lg:block relative pr-4">
-        <Burst class="w-10 h-10 absolute -top-10 right-8" fill="#FF4D00" />
-        <Burst class="w-6 h-6 absolute -top-2 -left-6" fill="#141414" />
-        <Terminal />
-        <ArrowScribble class="w-14 h-14 absolute -bottom-12 -left-14 rotate-12" />
-      </div>
+    <div class="mt-10 flex flex-wrap items-center gap-4">
+      <a
+        href={`mailto:${profile.email}`}
+        class="font-mono font-bold text-sm bg-accent text-paper px-6 py-3 hover:bg-ink"
+      >
+        Get in touch
+      </a>
+      <a
+        href="/work"
+        class="font-mono font-bold text-sm border border-ink px-6 py-3 hover:bg-paper-alt"
+      >
+        View work
+      </a>
     </div>
-  </div>
 
-  <!-- stat strip -->
-  <div class="max-w-content mx-auto px-5 md:px-8 pb-14 md:pb-20">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
-      {
-        stats.map((s, i) => (
-          <div
-            class:list={[
-              "border-3 border-ink px-5 py-5 shadow-brutal",
-              i % 2 === 0 ? "bg-paper" : "bg-sun",
-            ]}
-          >
-            <div class="font-display text-3xl md:text-4xl">{s.value}</div>
-            <div class="mt-2 font-mono text-[11px] font-bold uppercase tracking-wide leading-snug">
-              {s.label}
-            </div>
-          </div>
-        ))
-      }
-    </div>
+    <p class="mt-10 font-mono text-[12px] text-muted">
+      {profile.location} · {profile.availability}
+    </p>
   </div>
 </section>

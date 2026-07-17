@@ -1,0 +1,39 @@
+---
+import { projects } from "@/data/site";
+import ProjectCard from "@/components/projectCard.astro";
+
+const featured = projects.filter((p) => p.featured).slice(0, 3);
+const slugMap: Record<string, string> = {
+  "Dealer's Dash": "dealers-dash",
+  MarketifyALL: "marketifyall",
+  "email-probe": "email-probe",
+  "AI Voice Call Center": "voice-call-center",
+  RankOps: "rankops",
+  RealStateVideo: "realstatevideo",
+};
+---
+
+<section class="border-b border-rule">
+  <div class="max-w-content mx-auto px-5 md:px-8 py-20 md:py-32">
+    <p class="font-mono text-[12px] font-bold uppercase tracking-wider text-muted mb-10">
+      Selected Work
+    </p>
+
+    <div class="grid gap-6">
+      {
+        featured.map((p, i) => (
+          <ProjectCard project={p} index={i} slug={slugMap[p.name]} />
+        ))
+      }
+    </div>
+
+    <div class="mt-10">
+      <a
+        href="/work"
+        class="font-mono text-sm font-bold text-accent hover:underline underline-offset-4"
+      >
+        View all work →
+      </a>
+    </div>
+  </div>
+</section>

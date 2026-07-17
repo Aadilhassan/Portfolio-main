@@ -2,18 +2,21 @@
 import { profile } from "@/data/site";
 ---
 
-<footer class="border-t-3 border-ink bg-ink text-paper">
+<footer class="border-t border-rule mt-auto">
   <div
     class="max-w-content mx-auto px-5 md:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4"
   >
-    <p class="font-mono text-[13px] font-bold uppercase">
+    <p class="font-mono text-[13px] text-muted">
       © 2026 {profile.name} · Ranchi, India
     </p>
-    <div class="flex items-center gap-6 font-mono text-[13px]">
+    <div class="flex items-center gap-6 font-mono text-[13px] text-muted">
       <span>Built with Astro. Zero JS. Zero trackers.</span>
-      <a href="#top" class="font-bold underline decoration-accent decoration-4 underline-offset-4"
-        >TOP ↑</a
+      <a
+        href="#top"
+        class="text-ink hover:text-accent"
       >
+        TOP ↑
+      </a>
     </div>
   </div>
 </footer>

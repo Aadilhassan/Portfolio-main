@@ -2,22 +2,58 @@
 import Layout from "@/layouts/Layout.astro";
 import Nav from "@/components/nav.astro";
 import Hero from "@/components/hero.astro";
+import ProofStrip from "@/components/proofStrip.astro";
 import About from "@/components/about.astro";
-import Work from "@/components/work.astro";
-import Experience from "@/components/experience.astro";
+import FeaturedWork from "@/components/featuredWork.astro";
 import Skills from "@/components/skills.astro";
+import WritingPreview from "@/components/writingPreview.astro";
 import Contact from "@/components/contact.astro";
 import Footer from "@/components/footer.astro";
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What is Aadil Hassan's tech stack?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Python (FastAPI, Django), TypeScript, React, Next.js, Node.js, PostgreSQL/Supabase, AWS. AI/LLM: Claude API, LangGraph, RAG with Qdrant, real-time voice AI (Twilio/Deepgram/ElevenLabs).",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is Aadil available for remote work?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Based in Ranchi, India (UTC+5:30). Available for remote roles with US Eastern or EU timezone overlap. Currently open to senior full-stack and AI engineering roles.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What kind of projects has Aadil shipped?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "10+ products end to end including AI revenue optimization platforms, real-time voice call centers, multi-tenant marketing SaaS (170 active users), a published npm SDK for email deliverability, and autonomous SEO agents.",
+      },
+    },
+  ],
+};
 ---
 
-<Layout title="Aadil Hassan — Senior Software Engineer">
+<Layout
+  title="Aadil Hassan — Senior Software Engineer"
+  structuredData={[faqSchema]}
+>
   <Nav />
   <main>
     <Hero />
+    <ProofStrip />
     <About />
-    <Work />
-    <Experience />
+    <FeaturedWork />
     <Skills />
+    <WritingPreview />
     <Contact />
   </main>
   <Footer />

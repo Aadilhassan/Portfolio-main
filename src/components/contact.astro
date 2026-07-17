@@ -1,30 +1,18 @@
 ---
-import Burst from "@/components/svg/Burst.astro";
-import Squiggle from "@/components/svg/Squiggle.astro";
 import { profile } from "@/data/site";
 ---
 
-<section id="contact">
-  <div class="max-w-content mx-auto px-5 md:px-8 py-20 md:py-28">
-    <div class="flex items-center gap-4">
-      <span
-        class="font-mono font-bold text-sm bg-ink text-paper px-3 py-2 border-3 border-ink"
-        >04</span
-      >
-      <span class="font-mono text-sm font-bold uppercase">Contact</span>
-      <Burst class="w-6 h-6" fill="#FF4D00" />
-    </div>
+<section id="contact" class="border-b border-rule">
+  <div class="max-w-content mx-auto px-5 md:px-8 py-20 md:py-32">
+    <p class="font-mono text-[12px] font-bold uppercase tracking-wider text-muted mb-8">
+      Contact
+    </p>
 
-    <h2
-      class="mt-8 font-display text-4xl sm:text-6xl md:text-7xl uppercase leading-[0.95] max-w-4xl"
-    >
-      Let's build something that
-      <span class="bg-sun px-2 -mx-1 box-decoration-clone">ships.</span>
+    <h2 class="font-display text-4xl sm:text-5xl md:text-6xl leading-[1.0] max-w-3xl">
+      Let's build something that ships.
     </h2>
 
-    <Squiggle class="w-64 h-4 mt-6" />
-
-    <p class="mt-8 text-lg md:text-xl leading-relaxed max-w-xl">
+    <p class="mt-8 text-lg md:text-xl leading-relaxed text-muted max-w-body">
       Open to senior full-stack and AI engineering roles, and to interesting
       contract work. The fastest way to reach me is email.
     </p>
@@ -32,32 +20,38 @@ import { profile } from "@/data/site";
     <div class="mt-10">
       <a
         href={`mailto:${profile.email}`}
-        class="inline-block font-mono font-bold text-lg md:text-2xl bg-paper border-3 border-ink px-6 py-4 shadow-brutal-lg hover:bg-sun break-all"
+        class="inline-block font-mono font-bold text-lg md:text-xl border border-ink px-6 py-4 hover:bg-paper-alt break-all"
       >
         {profile.email}
       </a>
     </div>
 
-    <div class="mt-10 flex flex-wrap items-center gap-4 font-mono text-sm font-bold">
+    <div class="mt-10 flex flex-wrap items-center gap-6 font-mono text-sm">
       <a
         href={profile.github}
         target="_blank"
         rel="noopener me"
-        class="underline decoration-accent decoration-4 underline-offset-4 hover:bg-sun">GITHUB ↗</a
+        class="text-accent hover:underline underline-offset-4"
       >
+        GitHub ↗
+      </a>
       <a
         href={profile.linkedin}
         target="_blank"
         rel="noopener me"
-        class="underline decoration-accent decoration-4 underline-offset-4 hover:bg-sun">LINKEDIN ↗</a
+        class="text-accent hover:underline underline-offset-4"
       >
+        LinkedIn ↗
+      </a>
       <a
         href={profile.resume}
         target="_blank"
         rel="noopener"
-        class="underline decoration-accent decoration-4 underline-offset-4 hover:bg-sun">RÉSUMÉ ↓</a
+        class="text-accent hover:underline underline-offset-4"
       >
-      <span class="text-muted font-medium">⌂ {profile.location}</span>
+        Résumé ↓
+      </a>
+      <span class="text-muted">{profile.location}</span>
     </div>
   </div>
 </section>

@@ -1,49 +1,48 @@
 ---
 import { profile } from "@/data/site";
+import MobileNav from "@/components/mobileNav.astro";
 
 const links = [
-  { label: "WORK", href: "#work" },
-  { label: "EXPERIENCE", href: "#experience" },
-  { label: "SKILLS", href: "#skills" },
-  { label: "CONTACT", href: "#contact" },
+  { label: "Work", href: "/work" },
+  { label: "Writing", href: "/writing" },
+  { label: "About", href: "/#about" },
+  { label: "Contact", href: "/#contact" },
 ];
 ---
 
-<header class="fixed top-0 inset-x-0 z-50 bg-paper border-b-3 border-ink">
+<header class="sticky top-0 z-50 bg-paper/95 backdrop-blur-sm border-b border-rule">
   <nav
-    class="max-w-content mx-auto px-5 md:px-8 h-[72px] flex items-center justify-between gap-4"
+    class="max-w-content mx-auto px-5 md:px-8 h-[64px] flex items-center justify-between gap-4"
   >
     <a
-      href="#top"
+      href="/"
       class="font-mono font-bold text-base tracking-tight"
-      aria-label="Back to top"
+      aria-label="Home"
     >
       AADIL<span class="text-accent">.</span>HASSAN
     </a>
 
-    <div class="flex items-center gap-2 md:gap-4">
-      <ul class="hidden md:flex items-center">
-        {
-          links.map((l) => (
-            <li>
-              <a
-                href={l.href}
-                class="font-mono text-[13px] font-medium px-3 py-2 hover:bg-sun hover:outline hover:outline-3 hover:outline-ink"
-              >
-                {l.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
+    <div class="hidden md:flex items-center gap-1">
+      {
+        links.map((l) => (
+          <a
+            href={l.href}
+            class="font-mono text-[13px] font-medium px-3 py-2 text-muted hover:text-ink"
+          >
+            {l.label}
+          </a>
+        ))
+      }
       <a
         href={profile.resume}
         target="_blank"
         rel="noopener"
-        class="font-mono text-[13px] font-bold bg-accent text-paper border-3 border-ink px-4 py-2 shadow-brutal-sm hover:bg-ink"
+        class="ml-3 font-mono text-[13px] font-bold bg-ink text-paper px-4 py-2 hover:bg-accent"
       >
-        RÉSUMÉ ↓
+        RÉSUMÉ
       </a>
     </div>
+
+    <MobileNav />
   </nav>
 </header>

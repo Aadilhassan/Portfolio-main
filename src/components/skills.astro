@@ -1,33 +1,22 @@
 ---
-import SectionHeading from "@/components/sectionHeading.astro";
 import { skills } from "@/data/site";
 ---
 
-<section id="skills" class="border-b-3 border-ink">
-  <div class="max-w-content mx-auto px-5 md:px-8 py-16 md:py-24">
-    <SectionHeading index="03" title="Skills & Tools" />
+<section class="border-b border-rule">
+  <div class="max-w-content mx-auto px-5 md:px-8 py-20 md:py-32">
+    <p class="font-mono text-[12px] font-bold uppercase tracking-wider text-muted mb-10">
+      Skills & Tools
+    </p>
 
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="flex flex-wrap gap-2">
       {
-        skills.map((group, i) => (
-          <div class="border-3 border-ink bg-paper shadow-brutal">
-            <h3
-              class:list={[
-                "font-mono text-[13px] font-bold uppercase tracking-wide px-4 py-2.5 border-b-3 border-ink",
-                i === 0 ? "bg-accent text-paper" : "bg-ink text-paper",
-              ]}
-            >
-              {group.label}
-            </h3>
-            <ul class="flex flex-wrap gap-2 p-4">
-              {group.items.map((item) => (
-                <li class="font-mono text-[12px] font-medium border-2 border-ink px-2 py-1 hover:bg-sun">
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))
+        skills.map((group) =>
+          group.items.map((item) => (
+            <span class="font-mono text-[12px] font-medium border border-rule px-3 py-1.5 text-muted hover:text-ink hover:border-ink">
+              {item}
+            </span>
+          ))
+        )
       }
     </div>
   </div>
