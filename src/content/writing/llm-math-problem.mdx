@@ -1,23 +1,23 @@
 ---
 title: "Don't let your LLM do math"
 date: "2026-05-12"
-excerpt: "LLMs are terrible at arithmetic. Here's how I built a financial data platform that uses AI for everything except the numbers — and why that matters."
+excerpt: "LLMs are terrible at arithmetic. Here's how I built a financial data platform that uses AI for everything except the numbers, and why that matters."
 description: "A case study in pairing LLMs with deterministic math engines for financial applications, drawn from building Dealer's Dash."
 ---
 
-LLMs hallucinate arithmetic. This isn't a bug — it's fundamental to how they work. They're language models, not calculators. Asking an LLM to compute `$1,247.50 × 12 months` is like asking a poet to do your taxes. They'll produce something that looks right, which is worse than producing something obviously wrong.
+LLMs hallucinate arithmetic. This isn't a bug. It's fundamental to how they work. They're language models, not calculators. Asking an LLM to compute `$1,247.50 × 12 months` is like asking a poet to do your taxes. They'll produce something that looks right, which is worse than producing something obviously wrong.
 
-When I built Dealer's Dash — a financial data platform for auto dealerships — arithmetic correctness was non-negotiable. Dealership owners make six-figure decisions based on these numbers. A hallucinated calculation could mean buying inventory they can't sell, or passing on a profitable opportunity.
+When I built Dealer's Dash, a financial data platform for auto dealerships, arithmetic correctness was non-negotiable. Dealership owners make six-figure decisions based on these numbers. A hallucinated calculation could mean buying inventory they can't sell, or passing on a profitable opportunity.
 
 Here's how I solved it.
 
 ## The architecture
 
-Dealer's Dash has two parallel systems that never cross paths:
+Dealer's Dash has two parallel systems that never cross paths.
 
 **The AI layer** handles natural language. It parses raw and scanned financial statements (via LlamaParse), understands plain-English queries ("show me F&I revenue trend for Q2"), and generates human-readable responses and dashboard configurations.
 
-**The math layer** handles numbers. It's pure Python/Pandas — deterministic, tested, auditable. Every calculation that touches money routes through this layer.
+**The math layer** handles numbers. It's pure Python/Pandas: deterministic, tested, auditable. Every calculation that touches money routes through this layer.
 
 The AI layer never touches a number. The math layer never touches a sentence. They communicate through a typed interface:
 
@@ -37,29 +37,29 @@ I tested what happens when you let an LLM do arithmetic. Using GPT-4 on a sample
 
 - Addition/subtraction: 2% error rate
 - Multiplication: 7% error rate
-- Multi-step calculations (>2 operations): 23% error rate
+- Multi-step calculations (more than 2 operations): 23% error rate
 - Percentage calculations: 18% error rate
 
-The scariest part: the errors were small. Off by 3%, 5%, 8% — wrong enough to matter, close enough to go unnoticed. A human reviewer might not catch a 5% error in a revenue projection. They'd trust it and make a bad decision.
+The scariest part: the errors were small. Off by 3%, 5%, 8%. Wrong enough to matter, close enough to go unnoticed. A human reviewer might not catch a 5% error in a revenue projection. They'd trust it and make a bad decision.
 
-The deterministic math layer has a 0% error rate. Not 99.9% — 0%. Every calculation is a Python function with type annotations and unit tests. `test_revenue_projection` runs in CI and fails if any assertion breaks. There is no room for hallucination because there is no LLM in the calculation path.
+The deterministic math layer has a 0% error rate. Not 99.9%. Zero. Every calculation is a Python function with type annotations and unit tests. `test_revenue_projection` runs in CI and fails if any assertion breaks. There is no room for hallucination because there is no LLM in the calculation path.
 
 ## Fine-tuning: domain-specific language
 
-Generic LLMs struggled with dealership financial terminology. "F&I" (Finance & Insurance), "front-end gross," "back-end gross," "pack," "holdback" — these terms have specific meanings in auto dealership finance that general-purpose models don't know.
+Generic LLMs struggled with dealership financial terminology. "F&I" (Finance & Insurance), "front-end gross," "back-end gross," "pack," "holdback." These terms have specific meanings in auto dealership finance that general-purpose models don't know.
 
-Solution: fine-tune on domain-specific data. I built a dataset of 500 query → structured-output pairs, curated from real dealership financial reports with expert annotation. Fine-tuning Claude 3 Haiku on this dataset improved extraction accuracy from ~70% to ~95%.
+Solution: fine-tune on domain-specific data. I built a dataset of 500 query-to-structured-output pairs, curated from real dealership financial reports with expert annotation. Fine-tuning Claude 3 Haiku on this dataset improved extraction accuracy from ~70% to ~95%.
 
-Why Haiku? Speed and cost. The model doesn't need to be smart — it just needs to map English to structured parameters. A smaller, faster model that's fine-tuned on domain data outperforms a larger general-purpose model for this specific task.
+Why Haiku? Speed and cost. The model doesn't need to be smart. It just needs to map English to structured parameters. A smaller, faster model that's fine-tuned on domain data outperforms a larger general-purpose model for this specific task.
 
 ## The lesson
 
-AI should augment deterministic systems, not replace them. The LLM is the interface layer — it makes the system accessible to non-technical users who can ask questions in plain English. But the calculations — the actual work — is done by code that can be tested, audited, and proven correct.
+AI should augment deterministic systems, not replace them. The LLM is the interface layer. It makes the system accessible to non-technical users who can ask questions in plain English. But the calculations, the actual work, is done by code that can be tested, audited, and proven correct.
 
-This pattern — LLM for intent parsing, deterministic engine for execution — applies beyond finance:
+This pattern, LLM for intent parsing, deterministic engine for execution, applies beyond finance:
 
-- **Legal documents:** LLM extracts clauses and entities, deterministic engine validates against regulation databases
-- **Medical records:** LLM surfaces relevant patient history, deterministic engine checks drug interactions
-- **Inventory management:** LLM interprets stakeholder requests, deterministic engine runs supply-chain optimization
+- **Legal documents:** LLM extracts clauses and entities, deterministic engine validates against regulation databases.
+- **Medical records:** LLM surfaces relevant patient history, deterministic engine checks drug interactions.
+- **Inventory management:** LLM interprets stakeholder requests, deterministic engine runs supply-chain optimization.
 
 The formula: find a domain where correctness matters, pair an LLM with a deterministic backend, and never let the LLM touch the numbers. Users get natural language interfaces. Businesses get correct results. Everyone wins.

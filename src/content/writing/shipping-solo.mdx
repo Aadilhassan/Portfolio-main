@@ -1,27 +1,29 @@
 ---
 title: "What I learned shipping 10 products solo"
 date: "2026-07-15"
-excerpt: "Three years, ten products, one person. Here's what actually matters when you build end to end alone — and what doesn't."
+excerpt: "Three years, ten products, one person. What actually matters when you build end to end alone, and what doesn't."
 description: "Reflections on three years of solo full-stack AI product development: what matters, what doesn't, and the patterns that made shipping possible."
 ---
 
-The common advice for solo builders is wrong. Not wrong in theory — wrong in priority order. Here's what I actually learned building 10+ products end to end, alone, over three years.
+Everyone tells solo builders to "just ship it." Nobody tells you what "it" looks like at month 8 when you have 4 half-finished products and a stack of tech debt. I learned the hard way, across 10+ products, what actually moves the needle and what's just noise.
 
 ## Velocity matters more than architecture
 
-A solo builder shipping one product per quarter will learn more than one spending a year perfecting an architecture. My first projects (Toowe.io, Infollion scrapers) weren't elegant. They shipped fast. Each one taught me something the previous one couldn't: what breaks at scale, what customers actually care about, which abstractions survive contact with reality.
+I spent the first year building "the right way." Clean abstractions, proper separation of concerns, design patterns. It took forever and taught me nothing I couldn't have learned from a blog post.
 
-The architecture I use today — FastAPI backends, Supabase with RLS, Next.js frontends, Trigger.dev for async — wasn't designed up front. It was discovered through shipping. Each project removed a pain point from the previous one until the stack converged naturally.
+Then I started shipping ugly. My first scraper for Infollion was 200 lines of Python held together with duct tape. It broke constantly. But it ran every night and it worked. I shipped it, got feedback, fixed what broke, and moved on.
 
-**Lesson:** Ship first, refactor based on real problems, not hypothetical ones. The best architecture emerges from scars, not whiteboards.
+The stack I use today wasn't planned. It was discovered through shipping. Each project removed a pain point from the last one until things started clicking naturally.
+
+**Lesson:** Ship first, refactor based on real problems. The best architecture comes from scars, not whiteboards.
 
 ## Cost kills AI products faster than bugs
 
-I built per-workspace LLM cost metering into MarketifyALL before I built the feature people paid for. That seemed backwards at the time. It wasn't.
+I built per-workspace LLM cost metering into MarketifyALL before I built most of the features people use. That felt backwards at the time. It wasn't.
 
-AI features that don't track costs will quietly burn through margins until the product is unprofitable. One tenant using GPT-4 for every minor request can 10x your bill overnight. You need per-tenant visibility into token usage before you need anything else.
+One tenant using GPT-4 for every minor request can 10x your bill overnight. I watched this happen to a friend's startup. They shipped an AI feature without cost tracking, got featured on Product Hunt, and had a $2,000 AWS bill in 48 hours.
 
-The same applies to latency. Users tolerate bugs for weeks. They abandon slow responses in seconds. Voice AI specifically — the AI Voice Call Center taught me that sub-500ms response time is the difference between "this feels like a real person" and "this is clearly a robot." Users don't measure latency consciously. They just feel it.
+The same applies to latency. Users tolerate bugs for weeks. They abandon slow responses in seconds. Voice AI specifically: sub-500ms response time is the difference between "this feels like a real person" and "this is clearly a robot." Users don't measure latency consciously. They just feel it.
 
 **Lesson:** Instrument costs and latency before instrumenting features. Money and time are the only non-negotiable constraints.
 
@@ -29,17 +31,17 @@ The same applies to latency. Users tolerate bugs for weeks. They abandon slow re
 
 Test coverage. Monitoring. Evaluation loops. Documentation. CI/CD.
 
-Every project I skipped these on, I regretted within three months. Every project I invested early, I shipped faster over time. The math is simple: fixing a bug after deployment costs 10x what catching it in CI costs. An eval loop that auto-scores LLM output is a force multiplier — it catches degradation before users report it.
+Every project I skipped these on, I regretted within three months. Every project I invested early, I shipped faster over time. The math is simple: fixing a bug after deployment costs 10x what catching it in CI costs.
 
 My email-probe SDK has full test coverage on every layer. It's the most boring code I've written. It's also the most reliable. The test suite caught 4 regressions before they reached npm.
 
-**Lesson:** The unglamorous infra — tests, evals, monitoring, CI — is the difference between sustainable shipping and burnout. One person can maintain 10 products. One person cannot maintain 10 products without tests.
+**Lesson:** The unglamorous infra is the difference between sustainable shipping and burnout. One person can maintain 10 products. One person cannot maintain 10 products without tests.
 
 ## AI is a layer, not a product
 
-The projects that worked built AI into a product people already needed. Dealer's Dash made financial analysts faster. MarketifyALL made marketers faster. The AI was invisible to the end user — they didn't think about "using AI," they thought about "getting their work done."
+The projects that worked built AI into something people already needed. Dealer's Dash made financial analysts faster. MarketifyALL made marketers faster. The AI was invisible to the end user. They didn't think about "using AI," they thought about "getting their work done."
 
-The projects that struggled started with AI and looked for a problem. This is the trap. Don't build AI for AI's sake. Build a product that solves a real problem, and use AI to make it 10x better.
+The projects that struggled started with AI and looked for a problem. This is the trap.
 
 **Lesson:** Solve a real problem first. Make it 10x better with AI. Never the other way around.
 
@@ -47,10 +49,10 @@ The projects that struggled started with AI and looked for a problem. This is th
 
 After three years and 10+ projects, here's what I reach for by default:
 
-- **Frontend:** Next.js App Router with React. Not because it's trendy — because server components handle multi-tenant data fetching without a separate API layer.
-- **Backend:** FastAPI (Python). Type-safe, fast, and the python ecosystem for AI/ML is unmatched.
-- **Database:** Supabase with PostgreSQL. RLS handles authorization at the database layer. Auth, storage, and real-time included.
-- **Async:** Trigger.dev. Simpler than temporal, more reliable than manual cron jobs.
+- **Frontend:** Next.js App Router with React. Server components handle multi-tenant data fetching without a separate API layer.
+- **Backend:** FastAPI (Python). Type-safe, fast, and the Python ecosystem for AI/ML is unmatched.
+- **Database:** Supabase with PostgreSQL. RLS handles authorization at the database layer.
+- **Async:** Trigger.dev. Simpler than Temporal, more reliable than manual cron jobs.
 - **AI:** Claude API for quality. OpenAI for speed. Groq for latency-critical paths.
 - **Hosting:** Vercel for frontends. AWS for anything stateful.
 
@@ -59,8 +61,8 @@ This stack isn't important. What's important is that I arrived at it by shipping
 ## What I'd tell myself three years ago
 
 1. Ship the ugly version. Nobody remembers version 1.
-2. Measurements before features. Costs, latency, and error rates. Always.
-3. Tests are a force multiplier, not a tax. Write them while the code is fresh.
+2. Measurements before features. Costs, latency, error rates. Always.
+3. Tests are a force multiplier, not a tax.
 4. AI is the how, not the what. Nobody buys "AI." They buy "faster," "cheaper," "easier."
 5. The stack doesn't matter. The shipping does.
 

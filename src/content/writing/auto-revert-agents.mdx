@@ -1,21 +1,21 @@
 ---
 title: "Building agents that govern their own output"
 date: "2026-04-25"
-excerpt: "The most important feature of RankOps isn't the AI that writes SEO metadata — it's the system that reverts bad changes. Autonomous agents need self-governance."
-description: "Why the auto-revert mechanism in RankOps matters more than the AI generation — lessons in building autonomous agents that can be trusted to run unsupervised."
+excerpt: "The most important feature of RankOps isn't the AI that writes SEO metadata. It's the system that reverts bad changes. Autonomous agents need self-governance."
+description: "Why the auto-revert mechanism in RankOps matters more than the AI generation. Lessons in building autonomous agents that can be trusted to run unsupervised."
 ---
 
 Most AI agent demos focus on what the agent can *do*. Write this. Generate that. Automate those. The impressive part is the generation.
 
 In production, the impressive part is what the agent *doesn't* do. Doesn't ship bad output. Doesn't make things worse. Doesn't run silently off the rails.
 
-RankOps — an autonomous SEO agent I built — is defined more by its safety mechanisms than its AI capabilities. Here's why.
+RankOps, an autonomous SEO agent I built, is defined more by its safety mechanisms than its AI capabilities. Here's why.
 
 ## The problem with autonomous agents
 
-An autonomous agent running unsupervised is a liability. It has one job: make changes automatically. If those changes are bad, it's making things worse automatically. Scale makes this catastrophic — an agent making bad changes to 500 pages is 500x worse than making bad changes to 1 page.
+An autonomous agent running unsupervised is a liability. It has one job: make changes automatically. If those changes are bad, it's making things worse automatically. Scale makes this catastrophic. An agent making bad changes to 500 pages is 500x worse than making bad changes to 1 page.
 
-The typical approach: human review. Every agent output gets reviewed before deployment. This defeats the purpose of autonomy. If a human has to review everything, the agent hasn't automated anything — it's just shifted the work from "doing" to "reviewing."
+The typical approach: human review. Every agent output gets reviewed before deployment. This defeats the purpose of autonomy. If a human has to review everything, the agent hasn't automated anything. It's just shifted the work from "doing" to "reviewing."
 
 The better approach: measurement + auto-revert. Let the agent deploy freely, measure the impact, and automatically revert anything that made things worse. Human review shifts from "review every output" to "review only the failures."
 
@@ -23,15 +23,15 @@ The better approach: measurement + auto-revert. Let the agent deploy freely, mea
 
 **Step 1: Find underperforming pages**
 
-The ETL pipeline pulls data from Google Search Console — pages with high impressions and low CTR. These are the highest-leverage targets: pages people *see* but don't *click*. A metadata improvement here has immediate measurable impact.
+The ETL pipeline pulls data from Google Search Console: pages with high impressions and low CTR. These are the highest-leverage targets. Pages people *see* but don't *click*. A metadata improvement here has immediate measurable impact.
 
 **Step 2: Generate optimized metadata**
 
-Claude (via LangGraph) takes the page content and current metadata, generates an optimized title and description, and produces a structured output. Standard LLM generation — nothing novel here.
+Claude (via LangGraph) takes the page content and current metadata, generates an optimized title and description, and produces a structured output. Standard LLM generation. Nothing novel here.
 
 **Step 3: Deploy to Webflow CMS**
 
-The change goes live automatically. No human review. No approval step. This sounds reckless — and it would be, without step 4.
+The change goes live automatically. No human review. No approval step. This sounds reckless. It would be, without step 4.
 
 **Step 4: A/B test**
 
@@ -39,9 +39,9 @@ The system waits 2 weeks (configurable). During this period, it compares CTR of 
 
 **Step 5: Keep or revert**
 
-If CTR improved significantly → keep the change, log it as a win.
-If CTR didn't improve → auto-revert to the original metadata, log it as a neutral outcome.
-If CTR got worse → auto-revert immediately, flag for investigation.
+If CTR improved significantly: keep the change, log it as a win.
+If CTR didn't improve: auto-revert to the original metadata, log it as a neutral outcome.
+If CTR got worse: auto-revert immediately, flag for investigation.
 
 Each outcome feeds back into the system. Prompt improvements target the patterns seen in failures. The agent gets better because it measures its own performance.
 
@@ -49,22 +49,22 @@ Each outcome feeds back into the system. Prompt improvements target the patterns
 
 Auto-revert changes the risk calculus. An agent that can make bad changes is dangerous. An agent whose bad changes are temporary is safe.
 
-The key design decision: default to revert. If there's any ambiguity — statistical noise, insufficient data, edge cases — the system reverts. It's better to make no change than a bad change. This is the opposite of most AI systems, which default to "show the output."
+The key design decision: default to revert. If there's any ambiguity (statistical noise, insufficient data, edge cases) the system reverts. It's better to make no change than a bad change. This is the opposite of most AI systems, which default to "show the output."
 
 The second design decision: measurement before trust. I didn't trust the AI to write good metadata. I built a system that *measures* whether the metadata is good. The AI is just a proposal engine. The measurement system is the decision engine.
 
 ## What I'd build next
 
-The current system optimizes for CTR. That's a proxy metric — CTR correlates with traffic, but doesn't guarantee conversions. A better system would track the full funnel: CTR → page visit → conversion (signup, purchase, demo request). Optimize for downstream impact, not vanity metrics.
+The current system optimizes for CTR. That's a proxy metric. CTR correlates with traffic, but doesn't guarantee conversions. A better system would track the full funnel: CTR to page visit to conversion (signup, purchase, demo request). Optimize for downstream impact, not vanity metrics.
 
-Also: segmentation. Different page types need different optimization strategies. A product page has different metadata needs than a blog post. The current system uses one prompt for everything. A segmented approach — different prompts for different page types — would likely improve results.
+Also: segmentation. Different page types need different optimization strategies. A product page has different metadata needs than a blog post. The current system uses one prompt for everything. A segmented approach, different prompts for different page types, would likely improve results.
 
 ## The pattern
 
 The auto-revert pattern applies to any autonomous system:
 
 - **Code review agents:** Auto-generate PR comments. If the author dismisses with "not helpful," deprioritize that pattern.
-- **Content moderation:** Auto-flag posts. If the moderation team overrides >X% of flags, adjust thresholds.
+- **Content moderation:** Auto-flag posts. If the moderation team overrides a large share of flags, adjust thresholds.
 - **Ad optimization:** Auto-adjust bids. If CPC increases without conversion improvement, revert.
 
 The formula: deploy freely, measure rigorously, revert aggressively. An agent that governs its own output is the only kind of agent you can trust to run unsupervised.

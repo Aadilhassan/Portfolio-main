@@ -1,7 +1,7 @@
 ---
 title: "How to know if your LLM is actually working"
 date: "2026-06-14"
-excerpt: "LLMs in production degrade silently. Here's the eval infrastructure you need before you ship — prompt regression tests, output scoring, and cost monitoring."
+excerpt: "LLMs in production degrade silently. Here's the eval infrastructure you need before you ship: regression tests, output scoring, and cost monitoring."
 description: "A practical guide to LLM evaluation in production: regression tests, automated scoring, cost monitoring, and the metrics that actually matter."
 ---
 
@@ -13,18 +13,15 @@ You need eval infrastructure before you ship. Here's what I built across multipl
 
 **Layer 1: Regression tests (deterministic)**
 
-Basic assertions on structured output. For Dealer's Dash — the financial data platform — every calculation routes through a deterministic math engine. The LLM never does arithmetic. This means I can write standard pytest assertions on the math output. If `revenue_trend["q1_to_q2"]` doesn't equal the expected value, the test fails. No LLM involved in the assertion.
+Basic assertions on structured output. For Dealer's Dash, every calculation routes through a deterministic math engine. The LLM never does arithmetic. This means I can write standard pytest assertions on the math output. If `revenue_trend["q1_to_q2"]` doesn't equal the expected value, the test fails. No LLM involved in the assertion.
 
 Similarly, if your LLM outputs JSON (which it should, for anything production), validate the schema. Every time. `pydantic` models with strict validation catch malformed outputs before they reach users.
 
 **Layer 2: Eval scoring (LLM-judged)**
 
-For tasks where correctness is subjective — summary quality, tone, relevance — use a separate LLM call to score the output. This is the "LLM-as-judge" pattern.
+For tasks where correctness is subjective, use a separate LLM call to score the output. This is the "LLM-as-judge" pattern.
 
-The RankOps SEO agent uses this. After Claude generates new page metadata, a separate Claude call scores it on:
-- Relevance to page content (does the title match what the page is about?)
-- Click-through potential (would a human click this in search results?)
-- Length constraints (is the title under 60 characters?)
+The RankOps SEO agent uses this. After Claude generates new page metadata, a separate Claude call scores it on relevance to page content (does the title match what the page is about?), click-through potential (would a human click this in search results?), and length constraints (is the title under 60 characters?).
 
 Outputs scoring below threshold are regenerated. This adds one extra LLM call per generation but prevents bad output from shipping.
 
@@ -37,7 +34,7 @@ Evals catch what you can test. Monitoring catches what you can't predict. At min
 - **Token usage per request.** Spikes indicate prompt injection or unexpected context growth.
 - **Latency P50/P95/P99.** Degradation means model changes or infrastructure issues.
 - **Output length distribution.** Sudden shifts (all responses getting shorter) indicate prompt drift.
-- **Error rate by category.** Parse errors vs. rate limits vs. content filter blocks — each needs different handling.
+- **Error rate by category.** Parse errors vs. rate limits vs. content filter blocks each need different handling.
 
 I use Helicone for LLM observability (tracks cost, latency, token counts per model) plus Sentry for application-level errors. The combination covers both "the LLM did something wrong" and "the LLM didn't run at all."
 
@@ -51,13 +48,13 @@ The most powerful pattern I've used: run evals continuously, feed results back i
 4. Update prompts to address systematic failures
 5. Measure if scores improve after prompt update
 
-This is what powers both RankOps and the Voice Call Center. The systems get better over time because there's a measurement → improvement loop. Without it, you're just hoping.
+This is what powers both RankOps and the Voice Call Center. The systems get better over time because there's a measurement and improvement loop. Without it, you're just hoping.
 
 ## What breaks in production
 
 The failures I've actually seen, in order of frequency:
 
-1. **Rate limits.** Provider throttles your requests mid-batch. Need exponential backoff + dead-letter queue.
+1. **Rate limits.** Provider throttles your requests mid-batch. Need exponential backoff and a dead-letter queue.
 2. **Content filters.** Completely fine requests get blocked. Need fallback models and graceful degradation.
 3. **Silent model updates.** Provider updates the model, your prompt behaves differently. Need eval tests that run on every deploy.
 4. **Token cost explosion.** A new user pastes a 50-page document into the chat. Need input length limits and per-user cost monitoring.
