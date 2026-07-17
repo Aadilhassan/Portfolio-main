@@ -1,0 +1,67 @@
+---
+title: "What I learned shipping 10 products solo"
+date: "2026-07-15"
+excerpt: "Three years, ten products, one person. Here's what actually matters when you build end to end alone — and what doesn't."
+description: "Reflections on three years of solo full-stack AI product development: what matters, what doesn't, and the patterns that made shipping possible."
+---
+
+The common advice for solo builders is wrong. Not wrong in theory — wrong in priority order. Here's what I actually learned building 10+ products end to end, alone, over three years.
+
+## Velocity matters more than architecture
+
+A solo builder shipping one product per quarter will learn more than one spending a year perfecting an architecture. My first projects (Toowe.io, Infollion scrapers) weren't elegant. They shipped fast. Each one taught me something the previous one couldn't: what breaks at scale, what customers actually care about, which abstractions survive contact with reality.
+
+The architecture I use today — FastAPI backends, Supabase with RLS, Next.js frontends, Trigger.dev for async — wasn't designed up front. It was discovered through shipping. Each project removed a pain point from the previous one until the stack converged naturally.
+
+**Lesson:** Ship first, refactor based on real problems, not hypothetical ones. The best architecture emerges from scars, not whiteboards.
+
+## Cost kills AI products faster than bugs
+
+I built per-workspace LLM cost metering into MarketifyALL before I built the feature people paid for. That seemed backwards at the time. It wasn't.
+
+AI features that don't track costs will quietly burn through margins until the product is unprofitable. One tenant using GPT-4 for every minor request can 10x your bill overnight. You need per-tenant visibility into token usage before you need anything else.
+
+The same applies to latency. Users tolerate bugs for weeks. They abandon slow responses in seconds. Voice AI specifically — the AI Voice Call Center taught me that sub-500ms response time is the difference between "this feels like a real person" and "this is clearly a robot." Users don't measure latency consciously. They just feel it.
+
+**Lesson:** Instrument costs and latency before instrumenting features. Money and time are the only non-negotiable constraints.
+
+## The boring stuff compounds
+
+Test coverage. Monitoring. Evaluation loops. Documentation. CI/CD.
+
+Every project I skipped these on, I regretted within three months. Every project I invested early, I shipped faster over time. The math is simple: fixing a bug after deployment costs 10x what catching it in CI costs. An eval loop that auto-scores LLM output is a force multiplier — it catches degradation before users report it.
+
+My email-probe SDK has full test coverage on every layer. It's the most boring code I've written. It's also the most reliable. The test suite caught 4 regressions before they reached npm.
+
+**Lesson:** The unglamorous infra — tests, evals, monitoring, CI — is the difference between sustainable shipping and burnout. One person can maintain 10 products. One person cannot maintain 10 products without tests.
+
+## AI is a layer, not a product
+
+The projects that worked built AI into a product people already needed. Dealer's Dash made financial analysts faster. MarketifyALL made marketers faster. The AI was invisible to the end user — they didn't think about "using AI," they thought about "getting their work done."
+
+The projects that struggled started with AI and looked for a problem. This is the trap. Don't build AI for AI's sake. Build a product that solves a real problem, and use AI to make it 10x better.
+
+**Lesson:** Solve a real problem first. Make it 10x better with AI. Never the other way around.
+
+## The stack that survived
+
+After three years and 10+ projects, here's what I reach for by default:
+
+- **Frontend:** Next.js App Router with React. Not because it's trendy — because server components handle multi-tenant data fetching without a separate API layer.
+- **Backend:** FastAPI (Python). Type-safe, fast, and the python ecosystem for AI/ML is unmatched.
+- **Database:** Supabase with PostgreSQL. RLS handles authorization at the database layer. Auth, storage, and real-time included.
+- **Async:** Trigger.dev. Simpler than temporal, more reliable than manual cron jobs.
+- **AI:** Claude API for quality. OpenAI for speed. Groq for latency-critical paths.
+- **Hosting:** Vercel for frontends. AWS for anything stateful.
+
+This stack isn't important. What's important is that I arrived at it by shipping, not by reading. Every piece earned its place by solving a real problem I hit in production.
+
+## What I'd tell myself three years ago
+
+1. Ship the ugly version. Nobody remembers version 1.
+2. Measurements before features. Costs, latency, and error rates. Always.
+3. Tests are a force multiplier, not a tax. Write them while the code is fresh.
+4. AI is the how, not the what. Nobody buys "AI." They buy "faster," "cheaper," "easier."
+5. The stack doesn't matter. The shipping does.
+
+Three years, ten products, zero co-founders. It's been the hardest and most educational period of my career. On to the next ten.
