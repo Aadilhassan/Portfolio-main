@@ -131,36 +131,30 @@ const siteURL = "https://aadilhassan.in";
 
   body {
     font-family: "Archivo Variable", system-ui, sans-serif;
-    line-height: 1.55;
+    line-height: 1.65;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+    color: #1a1a1a;
+    background: #faf6ee;
   }
 
   ::selection {
     background-color: #ffd02f;
-    color: #141414;
+    color: #1a1a1a;
   }
 
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #d4d0c8 #faf6ee;
+  }
   ::-webkit-scrollbar {
-    width: 14px;
+    width: 8px;
   }
   ::-webkit-scrollbar-track {
     background: #faf6ee;
-    border-left: 3px solid #141414;
   }
   ::-webkit-scrollbar-thumb {
-    background: #141414;
-  }
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: #141414 #faf6ee;
-  }
-
-  /* No animation anywhere. */
-  *,
-  *::before,
-  *::after {
-    animation: none !important;
-    transition: none !important;
+    background: #d4d0c8;
+    border-radius: 4px;
   }
 </style>

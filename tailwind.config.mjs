@@ -4,29 +4,29 @@ export default {
   theme: {
     extend: {
       colors: {
-        paper: "#FAF6EE", // cream background
-        ink: "#141414", // near-black ink
-        accent: "#FF4D00", // loud orange
-        sun: "#FFD02F", // highlighter yellow
-        muted: "#6B675E", // secondary text
+        paper: "#FAF6EE",
+        "paper-alt": "#F4F0E8",
+        ink: "#1A1A1A",
+        accent: "#FF4D00",
+        sun: "#FFD02F",
+        muted: "#6B675E",
+        rule: "#D4D0C8",
       },
       fontFamily: {
         display: ['"Archivo Black"', "system-ui", "sans-serif"],
         sans: ['"Archivo Variable"', "system-ui", "sans-serif"],
         mono: ['"IBM Plex Mono"', "ui-monospace", "SFMono-Regular", "monospace"],
       },
-      boxShadow: {
-        brutal: "5px 5px 0 0 #141414",
-        "brutal-sm": "3px 3px 0 0 #141414",
-        "brutal-lg": "8px 8px 0 0 #141414",
-        "brutal-accent": "5px 5px 0 0 #FF4D00",
-        "brutal-sun": "5px 5px 0 0 #FFD02F",
-      },
-      borderWidth: {
-        3: "3px",
-      },
       maxWidth: {
         content: "1120px",
+        body: "65ch",
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: "65ch",
+          },
+        },
       },
     },
   },
