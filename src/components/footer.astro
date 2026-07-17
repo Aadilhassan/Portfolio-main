@@ -1,14 +1,18 @@
 ---
 import { profile } from "@/data/site";
+import AccentLine from "@/components/svg/AccentLine.astro";
 ---
 
 <footer class="border-t border-rule mt-auto">
   <div
     class="max-w-content mx-auto px-5 md:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4"
   >
-    <p class="font-mono text-[13px] text-muted">
-      © 2026 {profile.name} · Ranchi, India
-    </p>
+    <div class="flex items-center gap-4">
+      <AccentLine class="w-16 h-0.5" />
+      <p class="font-mono text-[13px] text-muted">
+        © 2026 {profile.name} · Ranchi, India
+      </p>
+    </div>
     <div class="flex items-center gap-6 font-mono text-[13px] text-muted">
       <span>Built with Astro. Zero JS. Zero trackers.</span>
       <a

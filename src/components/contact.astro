@@ -1,12 +1,19 @@
 ---
 import { profile } from "@/data/site";
+import AccentPlus from "@/components/svg/AccentPlus.astro";
+import AccentArch from "@/components/svg/AccentArch.astro";
 ---
 
-<section id="contact" class="border-b border-rule">
+<section id="contact" class="border-b border-rule relative overflow-hidden">
+  <AccentArch class="absolute top-24 right-[10%] w-24 h-16 opacity-50 hidden lg:block" />
+
   <div class="max-w-content mx-auto px-5 md:px-8 py-20 md:py-32">
-    <p class="font-mono text-[12px] font-bold uppercase tracking-wider text-muted mb-8">
-      Contact
-    </p>
+    <div class="flex items-center gap-3 mb-8">
+      <AccentPlus class="w-5 h-5" />
+      <p class="font-mono text-[12px] font-bold uppercase tracking-wider text-muted">
+        Contact
+      </p>
+    </div>
 
     <h2 class="font-display text-4xl sm:text-5xl md:text-6xl leading-[1.0] max-w-3xl">
       Let's build something that ships.

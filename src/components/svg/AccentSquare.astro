@@ -1,0 +1,20 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+---
+
+<svg
+  viewBox="0 0 40 40"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  class={className}
+  aria-hidden="true"
+>
+  <!-- overlapping squares -->
+  <rect x="4" y="4" width="24" height="24" stroke="#D4D0C8" stroke-width="0.75" />
+  <rect x="12" y="12" width="24" height="24" stroke="#6B675E" stroke-width="0.75" />
+  <rect x="8" y="8" width="16" height="16" stroke="#D4D0C8" stroke-width="0.75" />
+</svg>

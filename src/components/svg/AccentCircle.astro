@@ -1,0 +1,24 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+---
+
+<svg
+  viewBox="0 0 60 60"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  class={className}
+  aria-hidden="true"
+>
+  <!-- concentric circles -->
+  <circle cx="30" cy="30" r="28" stroke="#D4D0C8" stroke-width="0.75" />
+  <circle cx="30" cy="30" r="20" stroke="#D4D0C8" stroke-width="0.75" />
+  <circle cx="30" cy="30" r="12" stroke="#D4D0C8" stroke-width="0.75" />
+  <circle cx="30" cy="30" r="4" stroke="#FF4D00" stroke-width="0.75" />
+  <!-- crosshair lines -->
+  <line x1="30" y1="2" x2="30" y2="58" stroke="#D4D0C8" stroke-width="0.5" />
+  <line x1="2" y1="30" x2="58" y2="30" stroke="#D4D0C8" stroke-width="0.5" />
+</svg>

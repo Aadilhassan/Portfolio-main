@@ -1,0 +1,20 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+---
+
+<svg
+  viewBox="0 0 100 60"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  class={className}
+  aria-hidden="true"
+>
+  <!-- arch / half circles -->
+  <path d="M 10 50 A 40 40 0 0 1 90 50" stroke="#D4D0C8" stroke-width="0.75" />
+  <path d="M 25 50 A 25 25 0 0 1 75 50" stroke="#D4D0C8" stroke-width="0.75" />
+  <path d="M 40 50 A 10 10 0 0 1 60 50" stroke="#FF4D00" stroke-width="0.75" />
+</svg>

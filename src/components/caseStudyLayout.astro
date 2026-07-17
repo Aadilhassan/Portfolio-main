@@ -1,5 +1,6 @@
 ---
 import Breadcrumb from "@/components/breadcrumb.astro";
+import AccentCircle from "@/components/svg/AccentCircle.astro";
 
 interface Props {
   title: string;
@@ -13,7 +14,9 @@ const { title, kind, year, stack, links } = Astro.props;
 ---
 
 <div>
-  <div class="border-b border-rule">
+  <div class="border-b border-rule relative overflow-hidden">
+    <AccentCircle class="absolute top-24 right-[10%] w-14 h-14 opacity-40 hidden lg:block" />
+
     <div class="max-w-content mx-auto px-5 md:px-8 pt-24 md:pt-32 pb-12 md:pb-16">
       <Breadcrumb items={[{ label: "Work", href: "/work" }, { label: title }]} />
 
