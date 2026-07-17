@@ -15,7 +15,7 @@ interface Props {
 
 const {
   title,
-  description = "Aadil Hassan — Senior Software Engineer. I build AI-native products end to end: LLM pipelines, real-time voice agents, and full-stack SaaS. Based in Ranchi, India.",
+  description = "Aadil Hassan is a Senior Software Engineer building AI-native products end to end: LLM pipelines, real-time voice agents, and full-stack SaaS. Based in Ranchi, India.",
   canonicalURL = Astro.url.href,
   structuredData = [],
 } = Astro.props;
@@ -61,7 +61,7 @@ const baseSchema = {
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "Aadil Hassan — Portfolio",
+  name: "Aadil Hassan | Portfolio",
   url: siteURL,
   description,
   author: { "@type": "Person", name: "Aadil Hassan" },
@@ -97,7 +97,7 @@ const allSchema = [baseSchema, websiteSchema, ...structuredData];
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="Aadil Hassan — Senior Software Engineer. Full-stack + AI, 10+ products shipped end to end."
+      content="Aadil Hassan is a Senior Software Engineer. Full-stack + AI, 10+ products shipped end to end."
     />
 
     <meta name="twitter:card" content="summary_large_image" />

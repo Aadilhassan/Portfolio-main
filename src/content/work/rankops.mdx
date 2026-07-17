@@ -13,15 +13,15 @@ RankOps is an autonomous SEO agent in production that connects to Google Search 
 
 ## The Problem
 
-SEO metadata optimization is high-volume, low-creativity work. A typical site has hundreds of pages with suboptimal titles and descriptions. Manually rewriting them takes an SEO team weeks. And after rewriting, there's no systematic way to know if the changes actually helped — most teams just deploy and hope.
+SEO metadata optimization is high-volume, low-creativity work. A typical site has hundreds of pages with suboptimal titles and descriptions. Manually rewriting them takes an SEO team weeks. And after rewriting, there's no systematic way to know if the changes actually helped. Most teams just deploy and hope.
 
 ## The Approach
 
-**ETL pipeline** pulls search performance data from Google Search Console — pages, queries, impressions, clicks, CTR, position. Identifies pages that get impressions but low clicks (the biggest opportunity).
+**ETL pipeline** pulls search performance data from Google Search Console: pages, queries, impressions, clicks, CTR, position. Identifies pages that get impressions but low clicks (the biggest opportunity).
 
 **LangGraph agent** takes an underperforming page, retrieves the current content and metadata, generates optimized title and description using Claude, and produces a structured output.
 
-**Webflow CMS integration** deploys the change automatically — no manual copy-paste, no developer involvement.
+**Webflow CMS integration** deploys the change automatically. No manual copy-paste, no developer involvement.
 
 **A/B testing** runs for a configurable period (default: 2 weeks). Compares CTR of the new metadata against the baseline. If CTR doesn't improve meaningfully, the change is auto-reverted.
 
@@ -29,7 +29,7 @@ SEO metadata optimization is high-volume, low-creativity work. A typical site ha
 
 ## Key Decisions
 
-**Auto-revert on failure.** The agent doesn't just deploy and forget. Every change is measured. If the new metadata doesn't improve CTR, it's rolled back automatically. This makes the system safe to run unsupervised — bad changes are temporary.
+**Auto-revert on failure.** The agent doesn't just deploy and forget. Every change is measured. If the new metadata doesn't improve CTR, it's rolled back automatically. This makes the system safe to run unsupervised. Bad changes are temporary.
 
 **LangGraph for orchestration.** The workflow has multiple steps with conditional branching (skip pages that are already optimized, retry on API failures, route to different prompts based on page type). LangGraph handles this state machine cleanly.
 
@@ -37,11 +37,11 @@ SEO metadata optimization is high-volume, low-creativity work. A typical site ha
 
 ## Results
 
-- **Autonomous operation** — runs without human intervention
-- **Self-governing** — reverts changes that don't work
-- **Full observability** — every decision logged and traceable via OpenTelemetry
-- **Measurable impact** — every change has a before/after CTR comparison
+- **Autonomous operation** runs without human intervention
+- **Self-governing** reverts changes that don't work
+- **Full observability** every decision logged and traceable via OpenTelemetry
+- **Measurable impact** every change has a before/after CTR comparison
 
 ## Retrospective
 
-The auto-revert mechanism is what makes this production-safe. Without it, an agent that makes bad changes is worse than no agent at all. The measurement-first approach (test every change, revert failures) is a pattern I'd apply to any autonomous system. If rebuilding, I'd add more sophisticated segmentation — different strategies for different page types, and I'd track downstream conversion impact, not just CTR.
+The auto-revert mechanism is what makes this production-safe. Without it, an agent that makes bad changes is worse than no agent at all. The measurement-first approach (test every change, revert failures) is a pattern I'd apply to any autonomous system. If rebuilding, I'd add more sophisticated segmentation: different strategies for different page types, and I'd track downstream conversion impact, not just CTR.

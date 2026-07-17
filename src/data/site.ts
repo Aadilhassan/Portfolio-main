@@ -9,7 +9,7 @@ export const profile = {
   resume:
     "https://drive.google.com/file/d/1f6X28cXCtzI1DZs_dFuIU6NU692T4-ff/view?usp=sharing",
   tagline:
-    "I build AI-native products end to end — LLM pipelines, voice agents, and full-stack SaaS. Three years in, 10+ shipped, several live with paying users.",
+    "I build AI-native products end to end: LLM pipelines, voice agents, and full-stack SaaS. Three years in, 10+ shipped, several live with paying users.",
 };
 
 export const stats = [
@@ -20,8 +20,8 @@ export const stats = [
 ];
 
 export const about = [
-  "I'm a full-stack engineer who owns the whole thing — architecture, LLM orchestration, evaluation loops, telemetry, and the cost-and-latency tradeoffs that keep AI reliable once real users show up. Most of what I've built, I've built solo, top to bottom.",
-  "I've worked across medical data, dealership finance, marketing, and developer tooling. I care about correctness — I've paired LLMs with deterministic math engines when the numbers had to be exactly right — and about catching failures before users do, with real test coverage instead of hope.",
+  "I'm a full-stack engineer who owns the whole thing: architecture, LLM orchestration, evaluation loops, telemetry, and the cost-and-latency tradeoffs that keep AI reliable once real users show up. Most of what I've built, I've built solo, top to bottom.",
+  "I've worked across medical data, dealership finance, marketing, and developer tooling. I care about correctness. I've paired LLMs with deterministic math engines when the numbers had to be exactly right. And I care about catching failures before users do, with real test coverage instead of hope.",
 ];
 
 export interface Project {
@@ -56,7 +56,7 @@ export const projects: Project[] = [
     kind: "Multi-tenant marketing SaaS · 170 active users",
     featured: true,
     description:
-      "AI content, social publishing, email, SEO, landing pages, and lead CRM — driven by an AI chat command-center, with per-workspace LLM cost metering and Stripe billing. Grew from empty repo to 170 active users.",
+      "AI content, social publishing, email, SEO, landing pages, and lead CRM, all driven by an AI chat command-center, with per-workspace LLM cost metering and Stripe billing. Grew from empty repo to 170 active users.",
     stack: ["Next.js", "Supabase (RLS/RBAC)", "OpenAI / Claude", "Vercel"],
     links: [{ label: "marketifyall.com", href: "https://marketifyall.com" }],
   },
@@ -103,7 +103,7 @@ export const projects: Project[] = [
     name: "AI Voice Call Center",
     kind: "Autonomous phone agents",
     description:
-      "Real-time voice over Twilio Media Streams — Deepgram STT, ElevenLabs TTS, Groq-served LLMs — with barge-in for sub-second turns, Qdrant RAG knowledge bases, post-call LLM scoring as an eval loop, and a one-line embeddable widget.",
+      "Real-time voice over Twilio Media Streams: Deepgram STT, ElevenLabs TTS, Groq-served LLMs, with barge-in for sub-second turns, Qdrant RAG knowledge bases, post-call LLM scoring as an eval loop, and a one-line embeddable widget.",
     stack: ["Next.js", "PostgreSQL", "Redis", "Twilio"],
   },
 ];
@@ -124,7 +124,7 @@ export const experience: Job[] = [
     company: "Tech Ventures Group",
     role: "Senior Software Engineer",
     location: "Remote",
-    period: "Jun 2024 — Present",
+    period: "Jun 2024 - Present",
     points: [
       "Ship full-stack features across a Next.js/React frontend and a Python backend, owning them end to end from scope to architecture to deploy to monitoring.",
       "Architected an AI email/newsletter builder with an embedded Claude-powered chat copilot that drafts and edits campaign content from natural-language prompts.",
@@ -135,7 +135,7 @@ export const experience: Job[] = [
     company: "CribStore Innovations",
     role: "Lead Software Engineer",
     location: "Hyderabad, India",
-    period: "Nov 2023 — Aug 2024",
+    period: "Nov 2023 - Aug 2024",
     points: [
       "Led full-stack design of MERN microservices for a real-estate platform with RabbitMQ async messaging and Redis caching.",
       "Built email-probe, a 7-layer email-verification SDK that cut bounce rate by ~95%.",
@@ -145,7 +145,7 @@ export const experience: Job[] = [
     company: "Blackcoffer",
     role: "Software Engineer",
     location: "Remote",
-    period: "Jan 2023 — Nov 2023",
+    period: "Jan 2023 - Nov 2023",
     points: [
       "Built Toowe.io, a social-media automation platform for concurrent publishing across Facebook, Instagram and X.",
       "Containerized services with Docker + Nginx for consistent deployments.",

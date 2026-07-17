@@ -4,7 +4,7 @@ kind: "AI revenue optimization for auto dealerships"
 year: "2024"
 stack: ["AWS", "Python", "LLM fine-tuning", "LlamaParse", "NL query"]
 featured: true
-description: "A financial-data platform that pairs a fine-tuned LLM with a deterministic math engine to parse dealership statements and surface revenue opportunities — cutting plan-to-action time by ~90%."
+description: "A financial-data platform that pairs a fine-tuned LLM with a deterministic math engine to parse dealership statements and surface revenue opportunities, cutting plan-to-action time by ~90%."
 category: "ai"
 order: 1
 links: []
@@ -14,7 +14,7 @@ Dealer's Dash is a financial-data platform built entirely on AWS that parses raw
 
 ## The Problem
 
-Auto dealership owners and their finance teams work with large volumes of financial statements — often scanned PDFs with inconsistent formatting. Extracting actionable insights required manual data entry, cross-referencing multiple documents, and running spreadsheets by hand. Non-technical stakeholders had no way to ask questions about their own data without going through an analyst.
+Auto dealership owners and their finance teams work with large volumes of financial statements. Often scanned PDFs with inconsistent formatting. Extracting actionable insights required manual data entry, cross-referencing multiple documents, and running spreadsheets by hand. Non-technical stakeholders had no way to ask questions about their own data without going through an analyst.
 
 The existing workflow took days. Owners would identify a potential revenue issue, hand the documents to an analyst, wait for a report, then schedule a meeting to review it. By the time they acted, the window had often closed.
 
@@ -22,15 +22,15 @@ The existing workflow took days. Owners would identify a potential revenue issue
 
 The system has three layers: ingestion, analysis, and interaction.
 
-**Ingestion** uses LlamaParse to extract structured data from raw and scanned financial documents — PDFs, spreadsheets, and images. The parser handles inconsistent formatting across different dealerships and document types.
+**Ingestion** uses LlamaParse to extract structured data from raw and scanned financial documents: PDFs, spreadsheets, and images. The parser handles inconsistent formatting across different dealerships and document types.
 
-**Analysis** pairs a fine-tuned LLM with a deterministic math engine. The LLM understands natural-language queries and maps them to the right data fields. Every calculation — revenue projections, margin analysis, trend comparisons — routes through the deterministic engine. The LLM never does arithmetic.
+**Analysis** pairs a fine-tuned LLM with a deterministic math engine. The LLM understands natural-language queries and maps them to the right data fields. Every calculation (revenue projections, margin analysis, trend comparisons) routes through the deterministic engine. The LLM never does arithmetic.
 
 **Interaction** lets non-technical stakeholders ask questions in plain English and get dashboards back. "Show me F&I revenue trend for the last two quarters" produces a rendered chart, not a data dump.
 
 ## Key Decisions
 
-**LLM + deterministic math engine.** LLMs hallucinate arithmetic. For financial data where exactness is non-negotiable, every calculation routes through a deterministic math layer. The LLM handles intent parsing and response generation; the math engine handles numbers. Result: zero calculation errors in production.
+**LLM + deterministic math engine.** LLMs hallucinate arithmetic. For financial data where exactness is non-negotiable, every calculation routes through a deterministic math layer. The LLM handles intent parsing and response generation. The math engine handles numbers. Result: zero calculation errors in production.
 
 **Fine-tuned model over prompt engineering.** Generic LLMs couldn't reliably parse dealership-specific financial terminology and document structures. Fine-tuning on domain-specific data improved extraction accuracy from ~70% to ~95%, eliminating the need for manual correction on most documents.
 
@@ -38,11 +38,11 @@ The system has three layers: ingestion, analysis, and interaction.
 
 ## Results
 
-- **~90% reduction** in plan-to-action time — owners go from question to insight in minutes instead of days
+- **~90% reduction** in plan-to-action time. Owners go from question to insight in minutes instead of days
 - **Zero calculation errors** in production financial reports
 - **Non-technical users** query data directly without analyst involvement
 - Handles **inconsistent document formats** across dozens of dealership groups
 
 ## Retrospective
 
-The fine-tuning investment paid off significantly — the accuracy gains eliminated the biggest bottleneck (manual data correction). If I were building this again, I'd invest earlier in evaluation infrastructure: systematic benchmarks for extraction accuracy, regression tests for the math engine, and monitoring for model drift. The deterministic math layer was the right call — it turned an unreliable component (LLM arithmetic) into a non-issue.
+The fine-tuning investment paid off significantly. The accuracy gains eliminated the biggest bottleneck (manual data correction). If I were building this again, I'd invest earlier in evaluation infrastructure: systematic benchmarks for extraction accuracy, regression tests for the math engine, and monitoring for model drift. The deterministic math layer was the right call. It turned an unreliable component (LLM arithmetic) into a non-issue.

@@ -3,7 +3,7 @@ title: "RealStateVideo"
 kind: "Live SaaS · Stripe billing"
 year: "2024"
 stack: ["Astro / React", "Supabase", "Trigger.dev", "FFmpeg"]
-description: "A video-marketing SaaS that turns property listings into platform-optimized videos — vision + script generation, viral-hook scoring, TTS, caption alignment, automated FFmpeg rendering, and quality gating."
+description: "A video-marketing SaaS that turns property listings into platform-optimized videos: vision + script generation, viral-hook scoring, TTS, caption alignment, automated FFmpeg rendering, and quality gating."
 category: "saas"
 order: 6
 links:
@@ -15,7 +15,7 @@ RealStateVideo is a live SaaS that turns real-estate property listings into plat
 
 ## The Problem
 
-Real-estate agents need short marketing videos for every listing — for Instagram, TikTok, YouTube Shorts, and property portals. Producing these manually takes 30–60 minutes per video (script, record voiceover, edit, add captions, export). Agents have dozens of listings. The math doesn't work.
+Real-estate agents need short marketing videos for every listing: for Instagram, TikTok, YouTube Shorts, and property portals. Producing these manually takes 30 to 60 minutes per video (script, record voiceover, edit, add captions, export). Agents have dozens of listings. The math doesn't work.
 
 ## The Approach
 
@@ -25,7 +25,7 @@ Real-estate agents need short marketing videos for every listing — for Instagr
 
 **TTS + caption alignment** generates narration via text-to-speech and aligns captions at the word level for precise subtitle timing.
 
-**FFmpeg rendering** composites the video: property photos with Ken Burns effect, captions, platform-specific aspect ratio, and branding. Fully automated — no manual editing.
+**FFmpeg rendering** composites the video: property photos with Ken Burns effect, captions, platform-specific aspect ratio, and branding. Fully automated, no manual editing.
 
 **Quality eval** runs an LLM assessment on the final render: checks audio sync, caption readability, script coherence, and overall quality. Renders that don't pass are flagged for regeneration.
 
@@ -35,18 +35,18 @@ Real-estate agents need short marketing videos for every listing — for Instagr
 
 **Quality gate before delivery.** Most AI video tools ship whatever the model produces. A quality-eval step catches bad renders (audio out of sync, gibberish captions, incoherent scripts) before they reach the user. This trades a small amount of latency for significantly higher output quality.
 
-**Platform-specific generation.** A TikTok video has different requirements than a YouTube video — different aspect ratio, different script style, different hook strategy. Generating platform-specific output (rather than one-size-fits-all) dramatically improves engagement.
+**Platform-specific generation.** A TikTok video has different requirements than a YouTube video: different aspect ratio, different script style, different hook strategy. Generating platform-specific output (rather than one-size-fits-all) dramatically improves engagement.
 
 **Trigger.dev for pipeline orchestration.** The video generation pipeline has 6+ sequential steps with different failure modes. Trigger.dev handles retries, timeouts, and job monitoring.
 
 ## Results
 
-- **Automated end-to-end** — listing photos in, marketing video out
+- **Automated end-to-end.** Listing photos in, marketing video out
 - **Platform-optimized** output for Instagram, TikTok, YouTube
-- **Quality-gated** renders — bad videos don't ship
+- **Quality-gated** renders (bad videos don't ship)
 - **Live SaaS** with Stripe billing and public API
-- Reduces per-video production time from **30–60 minutes to under 5**
+- Reduces per-video production time from **30 to 60 minutes to under 5**
 
 ## Retrospective
 
-The quality gate was the highest-ROI decision — it turned inconsistent AI output into reliably good videos. Platform-specific generation was also key (agents noticed the difference immediately). If rebuilding, I'd add more template variety and a direct integration with listing platforms (MLS import) to eliminate the manual photo-upload step.
+The quality gate was the highest-ROI decision. It turned inconsistent AI output into reliably good videos. Platform-specific generation was also key (agents noticed the difference immediately). If rebuilding, I'd add more template variety and a direct integration with listing platforms (MLS import) to eliminate the manual photo-upload step.

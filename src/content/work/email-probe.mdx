@@ -4,7 +4,7 @@ kind: "Published npm SDK · zero runtime deps"
 year: "2024"
 stack: ["TypeScript", "Vitest", "RabbitMQ", "npm"]
 featured: true
-description: "A 7-layer email-deliverability pipeline with batch processing and full test coverage — cut marketing-email bounce rate by ~95%."
+description: "A 7-layer email-deliverability pipeline with batch processing and full test coverage, cutting marketing-email bounce rate by ~95%."
 category: "open-source"
 order: 3
 links:
@@ -12,23 +12,23 @@ links:
     href: "https://github.com/aadilhassan"
 ---
 
-email-probe is a 7-layer email-deliverability verification pipeline published as an npm SDK with zero runtime dependencies. It performs syntax validation, DNS/MX lookup, disposable address detection, role account detection, typo correction, catch-all detection, and live SMTP inbox verification — in sequence, with early termination. Built to cut marketing-email bounce rates by catching undeliverable addresses before send time.
+email-probe is a 7-layer email-deliverability verification pipeline published as an npm SDK with zero runtime dependencies. It performs syntax validation, DNS/MX lookup, disposable address detection, role account detection, typo correction, catch-all detection, and live SMTP inbox verification, in sequence, with early termination. Built to cut marketing-email bounce rates by catching undeliverable addresses before send time.
 
 ## The Problem
 
-Marketing teams at CribStore were sending emails to lists with 15–20% bounce rates. Every bounced email wastes money (ESP billing), damages sender reputation (which affects deliverability for legitimate emails), and risks getting flagged as spam. Existing email verification services (ZeroBounce, Hunter) were either too expensive at scale or unreliable for the specific patterns we were seeing.
+Marketing teams at CribStore were sending emails to lists with 15 to 20% bounce rates. Every bounced email wastes money (ESP billing), damages sender reputation (which affects deliverability for legitimate emails), and risks getting flagged as spam. Existing email verification services (ZeroBounce, Hunter) were either too expensive at scale or unreliable for the specific patterns we were seeing.
 
 ## The Approach
 
 A pipeline of 7 verification layers, each running in sequence with early termination (if a lower layer rejects, higher layers don't run):
 
-1. **Syntax** — RFC 5322 validation with edge-case handling
-2. **DNS/MX** — verify the domain has mail exchange records
-3. **Disposable** — detect throwaway email services (burner domains)
-4. **Role** — detect role-based addresses (info@, admin@, support@) that bounce
-5. **Typo correction** — detect common misspellings (gmial.com → gmail.com)
-6. **Catch-all** — detect domains that accept all addresses (unreliable deliverability)
-7. **Live SMTP** — connect to the mail server and verify the specific mailbox exists
+1. **Syntax** checks RFC 5322 validation with edge-case handling
+2. **DNS/MX** verifies the domain has mail exchange records
+3. **Disposable** detects throwaway email services (burner domains)
+4. **Role** detects role-based addresses (info@, admin@, support@) that bounce
+5. **Typo correction** detects common misspellings (gmial.com becomes gmail.com)
+6. **Catch-all** detects domains that accept all addresses (unreliable deliverability)
+7. **Live SMTP** connects to the mail server and verifies the specific mailbox exists
 
 Batch processing with RabbitMQ for queue distribution. Full unit-test coverage on every layer.
 
@@ -36,7 +36,7 @@ Batch processing with RabbitMQ for queue distribution. Full unit-test coverage o
 
 **Sequential pipeline with early termination.** Running all 7 layers on every address wastes time and money. If syntax fails, there's no point checking DNS. If DNS fails, there's no point checking SMTP. Early termination cuts average verification time by ~60%.
 
-**Zero runtime dependencies.** The SDK ships with no runtime dependencies — only dev dependencies for testing and building. This reduces supply-chain risk, minimizes install size, and ensures the SDK doesn't break when a transitive dependency updates.
+**Zero runtime dependencies.** The SDK ships with no runtime dependencies, only dev dependencies for testing and building. This reduces supply-chain risk, minimizes install size, and ensures the SDK doesn't break when a transitive dependency updates.
 
 **Dual ESM/CJS build.** Published as both ES modules and CommonJS so it works in any Node.js project regardless of module system. Vitest for testing (fast, native ESM support).
 
@@ -46,10 +46,10 @@ Batch processing with RabbitMQ for queue distribution. Full unit-test coverage o
 
 - **~95% bounce rate reduction** for marketing email campaigns
 - **Thousands of dollars saved** in ESP send costs
-- **Zero runtime dependencies** — minimal supply-chain surface
+- **Zero runtime dependencies** (minimal supply-chain surface)
 - **Full test coverage** on every verification layer
 - **Published on npm** as a reusable SDK
 
 ## Retrospective
 
-The sequential pipeline architecture was the key insight — it made verification fast and cheap by eliminating unnecessary work. The zero-dependency approach paid off in reliability (no breaking changes from upstream). If rebuilding, I'd add a micro AI model for "sketchy address" detection (patterns that look valid but aren't) — this was the one gap that the deterministic layers couldn't close.
+The sequential pipeline architecture was the key insight. It made verification fast and cheap by eliminating unnecessary work. The zero-dependency approach paid off in reliability (no breaking changes from upstream). If rebuilding, I'd add a micro AI model for "sketchy address" detection (patterns that look valid but aren't). That was the one gap that the deterministic layers couldn't close.
